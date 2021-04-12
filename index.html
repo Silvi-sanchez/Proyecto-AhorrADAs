@@ -4,9 +4,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/icono.finanza.jpg">
+    <link rel="stylesheet" href="./style.css">
     <title>Proyecto AhorrADAs</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
+
+    <div class="navbar-fixed">
+        <nav class="indigo accent-2">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">
+                    <img src="./img/money.ico" alt="">AhorrADAs
+                </a>
+                <a href="#" data-target="menu-responsive" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
+                <div class="right hide-on-med-and-down">
+                <ul class="tabs">
+                    <li class="tab col s3">
+                        <a href="#balance" class="balance">
+                            <span class="material-icons">
+                                equalizer
+                            </span>
+                            Balance</a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#categoria" class="categoria">
+                            <span class="material-icons">
+                                loyalty  
+                            </span>
+                            Categoría</a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#reportes" class="reportes">
+                            <span class="material-icons">
+                                folder_special
+                            </span>
+                            Reportes</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+        <ul class="sidenav" id="menu-responsive">
+            <li><a href="#balance">Balance</a></li>
+            <li><a href="#categoria">Categoría</a></li>
+            <li><a href="#reportes">Reportes</a></li>
+        </ul>
+
+        <div id="balance" class="col s12">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col s4">
+                        <div class="grey lighten-2">
+                            <h5>Balance</h5>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                    </div>
+                    <div class="separator">
     
+                    </div>
+                    <div class="grey lighten-2">
+                        <h5>Filtros</h5>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col s1">
+    
+                    </div>
+                    <div class="col s8">
+                        <div class="grey lighten-2">
+                            <h5>Operaciones</h5>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          
+    
+        <div id="categoria"> CATEGORIAS</div>
+        <div id="reportes"> REPORTES</div>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                M.AutoInit();
+            });
+        </script>
 </body>
 </html>
