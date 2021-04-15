@@ -51,59 +51,138 @@
             </div>
         </nav>
     </div>
-        <ul class="sidenav" id="menu-responsive">
-            <li><a href="#balance">Balance</a></li>
-            <li><a href="#categoria">Categoría</a></li>
-            <li><a href="#reportes">Reportes</a></li>
-        </ul>
+    <ul class="sidenav" id="menu-responsive">
+        <li><a href="#balance">Balance</a></li>
+        <li><a href="#categoria">Categoría</a></li>
+        <li><a href="#reportes">Reportes</a></li>
+    </ul>
 
-        <div id="balance" class="col s12">
-            <div class="container">
+        <main class="container">
 
-                <div class="row">
-                    <div class="col s4">
-                        <div class="grey lighten-2">
-                            <h5>Balance</h5>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                    </div>
-                    <div class="separator">
-    
-                    </div>
-                    <div class="grey lighten-2">
-                        <h5>Filtros</h5>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                    <div class="col s1">
-    
-                    </div>
-                    <div class="col s8">
-                        <div class="grey lighten-2">
+            <div class="row" id="balance">
+                <aside class="col m3 s12 is-p-0">
+                        <article class="card">
+                            <div class="card-content">
+                                <h5>Balance</h5>
+
+                                <p class="is-flex is-justify-between is-gap-4">
+                                   <span>
+                                    Gastos:
+                                   </span> 
+                                   <span class="red-text text-darken-2" id="balance-gastos">$100</span>
+                                </p>
+                                <p class="is-flex is-justify-between is-gap-4">
+                                    <span>
+                                     Ganancias:
+                                    </span> 
+                                     <span  class="green-text text-darken-2" id="balance-ganancias">$300</span>
+                                </p>
+                                <p class="is-flex is-justify-between is-gap-4">
+                                    <span>
+                                        Total:
+                                    </span> 
+                                    <span id="balance-total">$200</span>
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="card">
+                            <div class="card-content">
+                                <h5>Filtros</h5>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select>
+                                          <option value="" disabled selected>Tipo</option>
+                                          <option value="1">Ganancia</option>
+                                          <option value="2">Gasto</option>
+                                          <option value="3">Todo</option>
+                                        </select>
+                                        <label>Tipo</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <select>
+                                          <option value="" disabled selected>Categoría</option>
+                                          <option value="1">Option 1</option>
+                                          <option value="2">Option 2</option>
+                                          <option value="3">Option 3</option>
+                                        </select>
+                                        <label>Categoría</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                      <input value="Alvin" id="date" type="date" class="validate">
+                                      <label class="active" for="date">Desde</label>
+                                    </div>
+
+
+                                    <div class="input-field col s12">
+                                        <select>
+                                          <option value="" disabled selected>Ordenar por...</option>
+                                          <option value="1">Option 1</option>
+                                          <option value="2">Option 2</option>
+                                          <option value="3">Option 3</option>
+                                        </select>
+                                        <label>Ordenar por</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                </aside>
+
+                <div class="col m1"></div>
+
+                <article class="card col m8 s12">
+                    <div class="card-content">
+                        <header class="is-flex is-justify-between is-items-center is-flex-wrap">
                             <h5>Operaciones</h5>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                        </div>
+                            <button class="waves-effect waves-light btn-small"><i class="material-icons left">add</i>Crear operación</button>
+                        </header>
+
+                        <table>
+                            <thead>
+                              <tr>
+                                  <th>Descripción</th>
+                                  <th>Categoría</th>
+                                  <th>Fecha</th>
+                                  <th>Monto</th>
+                                  <th>Acciones</th>
+                              </tr>
+                            </thead>
+                    
+                            <tbody>
+                              <tr>
+                                <td>Alvin</td>
+                                <td>Comida</td>
+                                <td>15/4/2021</td>
+                                <td>
+                                    <p class="green-text text-darken-1">-$0</p>
+                                </td>
+                                <td>
+                                    <button class="btn-flat blue-text text-darken-2">Editar</button>
+                                    <button class="btn-flat blue-text text-darken-2">Eliminar</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                                
                     </div>
-                </div>
+                </article>
             </div>
-        </div>
+
+            <div class="row" id="categoria">
+                <div> CATEGORIAS</div>
+            </div>
+
+            <div class="row" id="reportes">
+                <div> REPORTES</div>
+            </div>
+
+        </main>
 
           
-    
-        <div id="categoria"> CATEGORIAS</div>
-        <div id="reportes"> REPORTES</div>
+
 
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -111,6 +190,11 @@
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 M.AutoInit();
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems, options);
             });
         </script>
 </body>
