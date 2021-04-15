@@ -32,3 +32,27 @@ img{
     border-radius: 10px;
     box-shadow: 3px 3px 3px grey;
 }
+
+.is-flex  {
+    display: flex;
+}
+
+.is-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.is-justify-between {
+    justify-content: space-between;
+}
+
+.is-items-center {
+    align-items: center;
+}
+
+.is-gap-4 {
+    gap: 1rem
+}
+
+.is-p-0 {
+    padding: 0 !important;
+}
