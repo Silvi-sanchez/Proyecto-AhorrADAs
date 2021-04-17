@@ -59,9 +59,8 @@
         <li><a href="#reportes">Reportes</a></li>
     </ul>
 
-    <main class="container">
-
-        <div class="row" id="balance">
+    <section class="container" id="balance">
+        <div class="row" >
             <aside class="col m3 s12 is-p-0">
                 <article class="card">
                     <div class="card-content space">
@@ -104,11 +103,8 @@
                             </div>
 
                             <div class="input-field col s12">
-                                <select>
+                                <select id="list-category">
                                     <option value="" disabled selected>Categoría</option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
                                 </select>
                                 <label>Categoría</label>
                             </div>
@@ -120,11 +116,14 @@
 
 
                             <div class="input-field col s12">
-                                <select>
+                                <select id="list-order">
                                     <option value="" disabled selected>Ordenar por...</option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
+                                    <option value="A-Z">A-Z</option>
+                                    <option value="Z-A">Z-A</option>
+                                    <option value="Más reciente">Más reciente</option>
+                                    <option value="Menos reciente">Menos reciente</option>
+                                    <option value="Mayor monto">Mayor monto</option>
+                                    <option value="Menor monto">Menor monto</option>
                                 </select>
                                 <label>Ordenar por</label>
                             </div>
@@ -139,11 +138,19 @@
                 <div class="card-content">
                     <header class="is-flex is-justify-between is-items-center is-flex-wrap">
                         <h5>Operaciones</h5>
-                        <button class="waves-effect waves-light btn-small"><i class="material-icons left">add</i>Crear
-                            operación</button>
+                        <a href="#operacion" class="waves-effect waves-light btn-small" id="agregar-operacion">
+                            <i class="material-icons left" >add</i>
+                            Crear operación
+                        </a>
                     </header>
 
-                    <table>
+                    <div class="center-align ">
+                        <img class="imagen-responsive" src="./img/imagen_sin_resultado.svg" >
+                        <h6>Sin resultados</h6>
+                        <p>Cambia los filtros o agrega operaciones</p>
+                    </div>
+
+                    <table class="responsive-table hide" >
                         <thead>
                             <tr>
                                 <th>Descripción</th>
@@ -163,8 +170,10 @@
                                     <p class="green-text text-darken-1">-$0</p>
                                 </td>
                                 <td>
-                                    <button class="btn-flat blue-text text-darken-2">Editar</button>
-                                    <button class="btn-flat blue-text text-darken-2">Eliminar</button>
+                                    <div class="is-flex is-flex-wrap">
+                                        <button class="btn-flat blue-text text-darken-2">Editar</button>
+                                        <button class="btn-flat blue-text text-darken-2">Eliminar</button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -173,19 +182,10 @@
                 </div>
             </article>
         </div>
-
-        <!-- <div class="row" id="categoria">
-            <div> CATEGORIAS</div>
-        </div>
-
-        <div class="row" id="reportes">
-            <div> REPORTES</div>
-        </div> -->
-
-    </main>
+    </section>
 
     <!-- Inicia Sección Categorias -->
-    <section class="section-padding " id="categoria">
+    <section class="section-padding" id="categoria">
 
         <div class="container z-depth-3 card-padding">
 
@@ -221,7 +221,7 @@
 
     <!--Iincio  Seccion operaciones -->
     <!-- class="hide" -->
-    <section class="section-padding hide">
+    <section class="section-padding hide" id="operacion">
         <div class="container z-depth-3">
             <div class="card-panel card-padding">
                 <h4>Nueva Operación</h4>
@@ -387,17 +387,7 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            M.AutoInit();
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems, options);
-        });
-    </script>
+    <script src="./app.js"></script>
 </body>
 
 </html>
