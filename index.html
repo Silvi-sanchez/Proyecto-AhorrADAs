@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,11 +13,12 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
+
 <body>
 
-    <div class="navbar-fixed">
+    <div class="navbar-fixed ">
         <nav class="indigo accent-2">
-            <div class="nav-wrapper">
+            <div class="nav-wrapper container"">
                 <a href="#" class="brand-logo">
                     <img src="./img/money.ico" alt="">AhorrADAs
                 </a>
@@ -24,29 +26,29 @@
                     <i class="material-icons">menu</i>
                 </a>
                 <div class="right hide-on-med-and-down">
-                <ul class="tabs">
-                    <li class="tab col s3">
-                        <a href="#balance" class="balance">
-                            <span class="material-icons">
-                                equalizer
-                            </span>
-                            Balance</a>
-                    </li>
-                    <li class="tab col s3">
-                        <a href="#categoria" class="categoria">
-                            <span class="material-icons">
-                                loyalty  
-                            </span>
-                            Categoría</a>
-                    </li>
-                    <li class="tab col s3">
-                        <a href="#reportes" class="reportes">
-                            <span class="material-icons">
-                                folder_special
-                            </span>
-                            Reportes</a>
-                    </li>
-                </ul>
+                    <ul class="tabs">
+                        <li class="tab col s3">
+                            <a href="#balance" class="balance">
+                                <span class="material-icons">
+                                    equalizer
+                                </span>
+                                Balance</a>
+                        </li>
+                        <li class="tab col s3">
+                            <a href="#categoria" class="categoria">
+                                <span class="material-icons">
+                                    loyalty
+                                </span>
+                                Categoría</a>
+                        </li>
+                        <li class="tab col s3">
+                            <a href="#reportes" class="reportes">
+                                <span class="material-icons">
+                                    folder_special
+                                </span>
+                                Reportes</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -57,102 +59,103 @@
         <li><a href="#reportes">Reportes</a></li>
     </ul>
 
-        <main class="container">
+    <main class="container">
 
-            <div class="row" id="balance">
-                <aside class="col m3 s12 is-p-0">
-                        <article class="card">
-                            <div class="card-content">
-                                <h5>Balance</h5>
+        <div class="row" id="balance">
+            <aside class="col m3 s12 is-p-0">
+                <article class="card">
+                    <div class="card-content space">
+                        <h5>Balance</h5>
 
-                                <p class="is-flex is-justify-between is-gap-4">
-                                   <span>
-                                    Gastos:
-                                   </span> 
-                                   <span class="red-text text-darken-2" id="balance-gastos">$100</span>
-                                </p>
-                                <p class="is-flex is-justify-between is-gap-4">
-                                    <span>
-                                     Ganancias:
-                                    </span> 
-                                     <span  class="green-text text-darken-2" id="balance-ganancias">$300</span>
-                                </p>
-                                <p class="is-flex is-justify-between is-gap-4">
-                                    <span>
-                                        Total:
-                                    </span> 
-                                    <span id="balance-total">$200</span>
-                                </p>
-                            </div>
-                        </article>
+                        <p class="is-flex is-justify-between is-gap-4">
+                            <span>
+                                Gastos:
+                            </span>
+                            <span class="red-text text-darken-2" id="balance-gastos">$100</span>
+                        </p>
+                        <p class="is-flex is-justify-between is-gap-4">
+                            <span>
+                                Ganancias:
+                            </span>
+                            <span class="green-text text-darken-2" id="balance-ganancias">$300</span>
+                        </p>
+                        <p class="is-flex is-justify-between is-gap-4">
+                            <span>
+                                Total:
+                            </span>
+                            <span id="balance-total">$200</span>
+                        </p>
+                    </div>
+                </article>
 
-                        <article class="card">
-                            <div class="card-content">
-                                <h5>Filtros</h5>
-
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <select>
-                                          <option value="" disabled selected>Tipo</option>
-                                          <option value="1">Ganancia</option>
-                                          <option value="2">Gasto</option>
-                                          <option value="3">Todo</option>
-                                        </select>
-                                        <label>Tipo</label>
-                                    </div>
-
-                                    <div class="input-field col s12">
-                                        <select>
-                                          <option value="" disabled selected>Categoría</option>
-                                          <option value="1">Option 1</option>
-                                          <option value="2">Option 2</option>
-                                          <option value="3">Option 3</option>
-                                        </select>
-                                        <label>Categoría</label>
-                                    </div>
-
-                                    <div class="input-field col s12">
-                                      <input value="Alvin" id="date" type="date" class="validate">
-                                      <label class="active" for="date">Desde</label>
-                                    </div>
-
-
-                                    <div class="input-field col s12">
-                                        <select>
-                                          <option value="" disabled selected>Ordenar por...</option>
-                                          <option value="1">Option 1</option>
-                                          <option value="2">Option 2</option>
-                                          <option value="3">Option 3</option>
-                                        </select>
-                                        <label>Ordenar por</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                </aside>
-
-                <div class="col m1"></div>
-
-                <article class="card col m8 s12">
+                <article class="card">
                     <div class="card-content">
-                        <header class="is-flex is-justify-between is-items-center is-flex-wrap">
-                            <h5>Operaciones</h5>
-                            <button class="waves-effect waves-light btn-small"><i class="material-icons left">add</i>Crear operación</button>
-                        </header>
+                        <h5>Filtros</h5>
 
-                        <table>
-                            <thead>
-                              <tr>
-                                  <th>Descripción</th>
-                                  <th>Categoría</th>
-                                  <th>Fecha</th>
-                                  <th>Monto</th>
-                                  <th>Acciones</th>
-                              </tr>
-                            </thead>
-                    
-                            <tbody>
-                              <tr>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="" disabled selected>Tipo</option>
+                                    <option value="1">Ganancia</option>
+                                    <option value="2">Gasto</option>
+                                    <option value="3">Todo</option>
+                                </select>
+                                <label>Tipo</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="" disabled selected>Categoría</option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                </select>
+                                <label>Categoría</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input value="Alvin" id="date" type="date" class="validate">
+                                <label class="active" for="date">Desde</label>
+                            </div>
+
+
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="" disabled selected>Ordenar por...</option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                </select>
+                                <label>Ordenar por</label>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </aside>
+
+            <div class="col m1"></div>
+
+            <article class="card col m8 s12">
+                <div class="card-content">
+                    <header class="is-flex is-justify-between is-items-center is-flex-wrap">
+                        <h5>Operaciones</h5>
+                        <button class="waves-effect waves-light btn-small"><i class="material-icons left">add</i>Crear
+                            operación</button>
+                    </header>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Monto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
                                 <td>Alvin</td>
                                 <td>Comida</td>
                                 <td>15/4/2021</td>
@@ -163,39 +166,238 @@
                                     <button class="btn-flat blue-text text-darken-2">Editar</button>
                                     <button class="btn-flat blue-text text-darken-2">Eliminar</button>
                                 </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                                
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </article>
+        </div>
+
+        <!-- <div class="row" id="categoria">
+            <div> CATEGORIAS</div>
+        </div>
+
+        <div class="row" id="reportes">
+            <div> REPORTES</div>
+        </div> -->
+
+    </main>
+
+    <!-- Inicia Sección Categorias -->
+    <section class="section-padding " id="categoria">
+
+        <div class="container z-depth-3 card-padding">
+
+            <h4>Categorías</h4>
+            <form action="#">
+
+                <div class="file-field input-field ">
+
+                    <div class="btn right  blue-grey darken-1">
+                        <span> Agregar </span>
+                        <input type="file">
                     </div>
-                </article>
+
+                    <div class="file-path-wrapper">
+                        <label for="input_text">
+                            <h6>Nombre</h6>
+                        </label>
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="row">
+                    <div class="col s8 green-text">Comida</div>
+                    <div class="col s2 blue-text">Editar</div>
+                    <div class="col s2 blue-text">Eliminar</div>
+                </div>
+
+            </div>
+    </section>
+    <!-- Fin sEcción categorias -->
+
+    <!--Iincio  Seccion operaciones -->
+    <!-- class="hide" -->
+    <section class="section-padding hide">
+        <div class="container z-depth-3">
+            <div class="card-panel card-padding">
+                <h4>Nueva Operación</h4>
+                <br />
+
+                <form >
+
+                    <div class="file-path-wrapper">
+                        <label for="input_text">
+                            <h6>Descripción</h6>
+                        </label>
+                        <input class="file-path validate" type="text">
+                    </div>
+
+                    <div class="file-path-wrapper">
+                        <label for="input_text">
+                            <h6>Monto</h6>
+                        </label>
+                        <input class="file-path validate" type="text">
+                    </div>
+                    <br>
+                    <div class="input-field col s12 m6 l6">
+                        <select id="input-select">
+                            <option value="" disabled="disabled" selected="selected">Elige una opción </option>
+                            <option value="Gasto">Gasto</option>
+                            <option value="Ganancia">Ganancia</option>
+                        </select>
+
+                        <label for="input-select">Tipo</label>
+                    </div>
+                    <br>
+                    <div class="input-field col s12 m6 l6">
+                        <select id="input-select">
+                            <option value="" disabled="disabled" selected="selected">Elige una opción </option>
+                            <option value="Comida">Comida</option>
+                            <option value="Servicios">Servicios</option>
+                            <option value="Salidas">Salidas</option>
+                            <option value="Educación">Educación</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Trabajo">Trabajo</option>
+                        </select>
+                        <label for="input-select">Categoría</label>
+                    </div>
+
+                    <div class=" col s12 m6 l6">
+                        <input type="text" class="datepicker" id="fecha">
+                        <label for="fecha">Fecha</label>
+                    </div>
+                    <div class=" col s12 m6 l6 right pad" style="padding-bottom: 30px;">
+                        <a class="waves-effect waves-light btn">Cancelar</a>
+                        <a class="waves-effect waves-light btn">Agregar</a>
+                    </div>
+
+                </form>
+
             </div>
 
-            <div class="row" id="categoria">
-                <div> CATEGORIAS</div>
+        </div>
+
+    </section>
+
+    <!-- Fin sección operaciones -->
+
+    <!-- Inicio Seccion Reportes -->
+    <section class="section-padding " id="reportes">
+        <div class="container z-depth-3 card-padding">
+            <h4>Reportes</h4>
+
+            <div class="responsibe-table">
+                <h5>Resumen</h5>
+                <table>
+
+                    <tbody>
+                        <tr>
+                            <td>Categoria con mayor ganancia</td>
+                            <td><span> Trabajo</span>
+                            </td>
+                            <td class="green-text">$15670</td>
+                        </tr>
+
+                        <tr>
+                            <td>Categoria con mayor gasto</td>
+                            <td>Comida</td>
+                            <td class="red-text">-$5670</td>
+                        </tr>
+
+                        <tr>
+                            <td>Categoria con mayor balance</td>
+                            <td>Trabajo</td>
+                            <td>$15670</td>
+                        </tr>
+
+                        <tr>
+                            <td>Mes con mayor ganancia</td>
+                            <td>2021/03/01</td>
+                            <td>$3.76</td>
+                        </tr>
+                        <tr>
+                            <td>Mes con mayor gasto</td>
+                            <td>2021/03/01</td>
+                            <td>$7.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div>
+                <h5>Totales por categorías</h5>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Categorías</th>
+                            <th>Ganancias</th>
+                            <th>Gastos</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- Esto se tiene que generar de manera dinámica -->
+                        <tr>
+                            <td>Comida</td>
+                            <td class="green-text">$10.87</td>
+                            <td class="red-text">$0.87</td>
+                            <td>$0.56</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div>
+                <h5>Totales por mes</h5>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mes</th>
+                            <th>Ganancias</th>
+                            <th>Gastos</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>3/2021</td>
+                            <td class="green-text">$17670</td>
+                            <td class="red-text">-$3189</td>
+                            <td>$14481</td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
 
-            <div class="row" id="reportes">
-                <div> REPORTES</div>
-            </div>
+        </div>
+    </section>
 
-        </main>
-
-          
+    <!-- Fin Sección Reportes -->
 
 
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                M.AutoInit();
-            });
 
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems, options);
-            });
-        </script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            M.AutoInit();
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, options);
+        });
+    </script>
 </body>
+
 </html>
