@@ -83,3 +83,8 @@ img{
   height: 20px;
   padding: 10px;
 }
+
+.imagen-responsive {
+    width: 100%;
+    max-width: 300px;
+}

@@ -21,3 +21,15 @@
     });
   });
   
+
+  document.addEventListener('DOMContentLoaded', function () {
+    M.AutoInit();
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+});
+
+const listOrder = document.getElementById('list-order')
+
+// listOrder.addEventListener('change', event => {
+//   console.log(event.target.value)
+// })
