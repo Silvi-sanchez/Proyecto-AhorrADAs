@@ -56,3 +56,30 @@ img{
 .is-p-0 {
     padding: 0 !important;
 }
+
+.row {
+    padding-top: 40px;
+}
+
+.space {
+    margin-bottom: 40px;
+}
+
+.section-padding {
+  padding: 50px ;
+  
+}
+
+.card-padding{
+  padding: 30px ;
+  padding-bottom: 110px;
+}
+
+.input-padding{
+  padding: 5px;
+}
+
+.table-padding {
+  height: 20px;
+  padding: 10px;
+}
