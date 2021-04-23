@@ -37,6 +37,11 @@ img{
     display: flex;
 }
 
+.is-flex-col {
+    flex-direction: column;
+}
+
+
 .is-flex-wrap {
     flex-wrap: wrap;
 }
@@ -87,4 +92,12 @@ img{
 .imagen-responsive {
     width: 100%;
     max-width: 300px;
+}
+
+.margin-top-0 {
+    margin-top: 0 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer
 }

@@ -190,32 +190,53 @@
         <div class="container z-depth-3 card-padding">
 
             <h4>Categorías</h4>
-            <form action="#">
+            <form id="form-create-category">
 
                 <div class="file-field input-field ">
 
-                    <div class="btn right  blue-grey darken-1">
-                        <span> Agregar </span>
-                        <input type="text">
-                    </div>
+                    <button class="waves-effect waves-light btn-small right"> Agregar </button>
 
                     <div class="file-path-wrapper">
                         <label for="input_text">
                             <h6>Nombre</h6>
                         </label>
-                        <input class="file-path validate" type="text">
+                        <input class="file-path validate" type="text" id="name">
                     </div>
                 </div>
             </form>
 
-            <div class="row">
-                <div class="row">
-                    <div class="col s8 green-text">Comida</div>
-                    <div class="col s2 blue-text">Editar</div>
-                    <div class="col s2 blue-text">Eliminar</div>
+            <div class="row" id="list-categories">
+            </div>
+    </section>
+
+
+    <!-- Inicia Sección Editar Categorias -->
+    <section class="section-padding" id="editar-categoria">
+
+        <div class="container z-depth-3 card-padding">
+
+            <h4>Editar categoria</h4>
+            <form id="form-create-category">
+
+                <div class="file-field input-field ">
+                    <div class="file-path-wrapper">
+                        <label for="input_text">
+                            <h6>Nombre</h6>
+                        </label>
+                        <input class="file-path validate" type="text" id="name">
+                    </div>
                 </div>
 
-            </div>
+                <div class="right ">
+                    <a href="#categoria" class="btn left transparent black-text">
+                        Cancelar
+                    </a>
+                    <button class="btn waves-effect waves-light" type="submit">
+                        Editar
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
     <!-- Fin sEcción categorias -->
 
@@ -393,6 +414,7 @@
 
     <script src="./app.js"></script>
     <script src="./crude.js"></script>
+    <script src="./dom.js"></script>
 </body>
 
 </html>
