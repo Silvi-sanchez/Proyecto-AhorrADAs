@@ -32,3 +32,76 @@ img{
     border-radius: 10px;
     box-shadow: 3px 3px 3px grey;
 }
+
+.is-flex  {
+    display: flex;
+}
+
+.is-flex-col {
+    flex-direction: column;
+}
+
+
+.is-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.is-justify-between {
+    justify-content: space-between;
+}
+
+.is-items-center {
+    align-items: center;
+}
+
+.is-gap-4 {
+    gap: 1rem
+}
+
+.is-p-0 {
+    padding: 0 !important;
+}
+
+.row {
+    padding-top: 40px;
+}
+
+.space {
+    margin-bottom: 40px;
+}
+
+.section-padding {
+  padding: 50px ;
+  
+}
+
+.card-padding{
+  padding: 30px ;
+  padding-bottom: 110px;
+}
+
+.input-padding{
+  padding: 5px;
+}
+
+.table-padding {
+  height: 20px;
+  padding: 10px;
+}
+
+.imagen-responsive {
+    width: 100%;
+    max-width: 300px;
+}
+
+.margin-top-0 {
+    margin-top: 0 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.section-padding{
+    padding: 20px;
+}
