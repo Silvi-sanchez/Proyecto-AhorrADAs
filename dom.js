@@ -1,6 +1,19 @@
 const listCategories = document.getElementById('list-categories')
 const formCreateCategory = document.getElementById('form-create-category')
 
+const createOperation = document.getElementById('create-operation') 
+const imagenSinOperaciones = document.getElementById('imagen-sin-operaciones') 
+const agregarOperacion = document.getElementById('agregar-operacion') 
+const balance = document.getElementById('balance')
+const categoria = document.getElementById('categoria')
+const reportes = document.getElementById('reportes')
+const editarCategoria = document.getElementById('editar-categoria')
+const botonBalance = document.querySelector('[href="#balance"]')
+const botonReporte = document.querySelector('[href="#reportes"]')
+const botonCategoria = document.querySelector('[href="#categoria"]')
+const botonCancelNewOperation = document.getElementById('boton-cancel-new-operation')
+const editOperation = document.getElementById('edit-operation')
+
 const renderCategories = (array, element) => {
     element.innerHTML = ''
   
@@ -47,19 +60,6 @@ formCreateCategory.addEventListener('submit', event => {
 })
 
 // Mostrar y ocultar secciones
-const createOperation = document.getElementById('create-operation') 
-const imagenSinOperaciones = document.getElementById('imagen-sin-operaciones') 
-const agregarOperacion = document.getElementById('agregar-operacion') 
-const balance = document.getElementById('balance')
-const categoria = document.getElementById('categoria')
-const reportes = document.getElementById('reportes')
-const editarCategoria = document.getElementById('editar-categoria')
-const botonBalance = document.querySelector('[href="#balance"]')
-const botonReporte = document.querySelector('[href="#reportes"]')
-const botonCategoria = document.querySelector('[href="#categoria"]')
-const botonCancelNewOperation = document.getElementById('boton-cancel-new-operation')
-const editOperation = document.getElementById('edit-operation')
-
 agregarOperacion.addEventListener('click', () => {
   createOperation.style.display = 'block';
   balance.style.display = 'none';
