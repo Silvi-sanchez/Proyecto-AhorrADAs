@@ -99,5 +99,10 @@ img{
 }
 
 .cursor-pointer {
-    cursor: pointer
+    cursor: pointer;
 }
+
+.section-padding{
+    padding: 20px;
+}
+

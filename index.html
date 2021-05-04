@@ -15,11 +15,11 @@
 </head>
 
 <body>
-
+    <!-- Barra nav -->
     <div class="navbar-fixed ">
         <nav class="indigo accent-2">
-            <div class="nav-wrapper container"">
-                <a href="#" class="brand-logo">
+            <div class="nav-wrapper container">
+                <a href="#balance" class="brand-logo">
                     <img src="./img/money.ico" alt="">AhorrADAs
                 </a>
                 <a href="#" data-target="menu-responsive" class="sidenav-trigger">
@@ -30,14 +30,16 @@
                         <li class="tab col s3">
                             <a href="#balance" class="balance">
                                 <span class="material-icons">
-                                    equalizer
+
+                                equalizer
+
                                 </span>
                                 Balance</a>
                         </li>
                         <li class="tab col s3">
                             <a href="#categoria" class="categoria">
                                 <span class="material-icons">
-                                    loyalty
+                                loyalty
                                 </span>
                                 Categoría</a>
                         </li>
@@ -53,12 +55,16 @@
             </div>
         </nav>
     </div>
+
+    <!-- Menú hamburguesa -->
     <ul class="sidenav" id="menu-responsive">
         <li><a href="#balance">Balance</a></li>
         <li><a href="#categoria">Categoría</a></li>
         <li><a href="#reportes">Reportes</a></li>
     </ul>
 
+
+    <!-- Inicia Sección Balance -->
     <section class="container" id="balance">
         <div class="row" >
             <aside class="col m3 s12 is-p-0">
@@ -138,50 +144,186 @@
                 <div class="card-content">
                     <header class="is-flex is-justify-between is-items-center is-flex-wrap">
                         <h5>Operaciones</h5>
-                        <a href="#operacion" class="waves-effect waves-light btn-small" id="agregar-operacion">
-                            <i class="material-icons left" >add</i>
+                        <a href="#create-operation" class="waves-effect waves-light btn-small" id="agregar-operacion">
+                            <i class="material-icons left">add</i>
                             Crear operación
                         </a>
                     </header>
-
-                    <div class="center-align ">
-                        <img class="imagen-responsive" src="./img/imagen_sin_resultado.svg" >
-                        <h6>Sin resultados</h6>
-                        <p>Cambia los filtros o agrega operaciones</p>
-                    </div>
-
-                    <table class="responsive-table hide" >
-                        <thead>
-                            <tr>
-                                <th>Descripción</th>
-                                <th>Categoría</th>
-                                <th>Fecha</th>
-                                <th>Monto</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-                                <td>Comida</td>
-                                <td>15/4/2021</td>
-                                <td>
-                                    <p class="green-text text-darken-1">-$0</p>
-                                </td>
-                                <td>
-                                    <div class="is-flex is-flex-wrap">
-                                        <button class="btn-flat blue-text text-darken-2">Editar</button>
-                                        <button class="btn-flat blue-text text-darken-2">Eliminar</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
+            <div class="center-align" id="imagen-sin-operaciones">
+                <img class="imagen-responsive" src="./img/imagen_sin_resultado.svg" >
+                <h6>Sin resultados</h6>
+                <p>Cambia los filtros o agrega operaciones</p>
+            </div>
             </article>
         </div>
+    </section>
+
+    <!-- Inicia Sección Nueva operación -->
+    <section id="create-operation" class="section-padding">
+        <div class="container z-depth-3 card-padding">
+            <div class="card-content">
+            <for class="box">
+                <h4 class="titulo">Nueva Operación</h4>
+                    <div class="field">
+                        <label for="operation-description" class="label">Descripción</label>
+                            <input 
+                            class="input"
+                            type="text"
+                            placeholder=""
+                            data-owner="create-operation"              
+                            name="description"/>
+                    </div>
+
+                    <div class="field">
+                        <label class="monto-operation">Monto</label>
+                            <input 
+                            class="input"
+                            type="text"
+                            placeholder=""
+                            value=""
+                            data-owner="create-operation"
+                            name="monto"/> 
+                    </div>
+
+                    <div class="field">
+                            <label for="tipo-operation" class="label"> Tipo</label>
+                        <div class="input-field col s10">
+                            <div class="select is-fullwidth">
+                                <select id="tipo">
+                                    <option>Gasto</option>
+                                    <option>Ganancia</option>                                   
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                            <label for="categoria-operation" class="label"> Categoría</label>
+                            <div class="select is-fullwidth">
+                                <select id="listaCategoria"> 
+                                <option>Salidas</option>
+                                <option>Educación</option>
+                                <option>Transporte</option>
+                                <option>Trabajo</option>
+                                </select>
+                            </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="date-operation" class="label"> Fecha</label>  
+                        <input id="input-fecha" class="validate" type="date" name="label">       
+                    </div>
+                    
+                    <div class="field">
+                            <a id="btn-agregar-operation" class="waves-effect waves-light btn-small right">
+                            Agregar
+                            </a>
+                            <a class="btn-small right transparent black-text" id="boton-cancel-new-operation">
+                                Cancelar
+                            </a>
+                    </div>                      
+            </for>
+            </div>
+        </div>  
+ 
+        
+        <table class="responsive-table hide" >
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabla-operations">
+                <tr>
+                    <td>Alvin</td>
+                    <td>Comida</td>
+                    <td>15/4/2021</td>
+                    <td>
+                        <p class="green-text text-darken-1">-$0</p>
+                    </td>
+                    <td>
+                        <div class="is-flex is-flex-wrap">
+                            <button class="btn-flat blue-text text-darken-2">Editar</button>
+                            <button class="btn-flat blue-text text-darken-2">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Inicia sección editar operación -->
+    <section id="edit-operation" class="section-padding">
+        <div class="container z-depth-3 card-padding">
+            <div class="card-content">
+            <for class="box">
+                <h4 class="titulo">Editar Operación</h4>
+                    <div class="field">
+                        <label class="label">Descripción</label>
+                            <input 
+                            class="input"
+                            type="text"
+                            placeholder=""
+                            data-owner="create-operation"              
+                            name="description"/>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Monto</label>
+                            <input 
+                            class="input"
+                            type="text"
+                            placeholder=""
+                            value=""
+                            data-owner="create-operation"
+                            name="monto"/> 
+                    </div>
+
+                    <div class="field">
+                            <label for="tipo" class="label"> Tipo</label>
+                        <div class="input-field col s10">
+                            <div class="select is-fullwidth">
+                                <select id="tipo">
+                                    <option>Gasto</option>
+                                    <option>Ganancia</option>                                   
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                            <label for="listaCategoria" class="label"> Categoría</label>
+                            <div class="select is-fullwidth">
+                                <select id="listaCategoria"> 
+                                <option>Salidas</option>
+                                <option>Educación</option>
+                                <option>Transporte</option>
+                                <option>Trabajo</option>
+                                </select>
+                            </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="date" class="label"> Fecha</label>  
+                        <input id="input-fecha" class="validate" type="date" name="label">       
+                    </div>
+                    
+                    <div class="field">
+                        <a class="btn-small right transparent black-text" id="boton-cancel-new-operation">
+                        Cancelar
+                        </a>
+                        <a id="btn-editar" class="waves-effect waves-light btn-small right">
+                        Editar
+                        </a>   
+                    </div>                      
+            </for>
+            </div>
+        </div>  
     </section>
 
     <!-- Inicia Sección Categorias -->
@@ -208,7 +350,6 @@
             <div class="row" id="list-categories">
             </div>
     </section>
-
 
     <!-- Inicia Sección Editar Categorias -->
     <section class="section-padding" id="editar-categoria">
@@ -238,75 +379,8 @@
             </form>
         </div>
     </section>
-    <!-- Fin sEcción categorias -->
 
-    <!--Iincio  Seccion operaciones -->
-    <!-- class="hide" -->
-    <section class="section-padding hide" id="operacion">
-        <div class="container z-depth-3">
-            <div class="card-panel card-padding">
-                <h4>Nueva Operación</h4>
-                <br />
-
-                <form >
-
-                    <div class="file-path-wrapper">
-                        <label for="input_text">
-                            <h6>Descripción</h6>
-                        </label>
-                        <input class="file-path validate" type="text">
-                    </div>
-
-                    <div class="file-path-wrapper">
-                        <label for="input_text">
-                            <h6>Monto</h6>
-                        </label>
-                        <input class="file-path validate" type="text">
-                    </div>
-                    <br>
-                    <div class="input-field col s12 m6 l6">
-                        <select id="input-select">
-                            <option value="" disabled="disabled" selected="selected">Elige una opción </option>
-                            <option value="Gasto">Gasto</option>
-                            <option value="Ganancia">Ganancia</option>
-                        </select>
-
-                        <label for="input-select">Tipo</label>
-                    </div>
-                    <br>
-                    <div class="input-field col s12 m6 l6">
-                        <select id="input-select">
-                            <option value="" disabled="disabled" selected="selected">Elige una opción </option>
-                            <option value="Comida">Comida</option>
-                            <option value="Servicios">Servicios</option>
-                            <option value="Salidas">Salidas</option>
-                            <option value="Educación">Educación</option>
-                            <option value="Transporte">Transporte</option>
-                            <option value="Trabajo">Trabajo</option>
-                        </select>
-                        <label for="input-select">Categoría</label>
-                    </div>
-
-                    <div class=" col s12 m6 l6">
-                        <input type="text" class="datepicker" id="fecha">
-                        <label for="fecha">Fecha</label>
-                    </div>
-                    <div class=" col s12 m6 l6 right pad" style="padding-bottom: 30px;">
-                        <a class="waves-effect waves-light btn">Cancelar</a>
-                        <a class="waves-effect waves-light btn">Agregar</a>
-                    </div>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- Fin sección operaciones -->
-
-    <!-- Inicio Seccion Reportes -->
+    <!-- Inicio Sección Reportes -->
     <section class="section-padding " id="reportes">
         <div class="container z-depth-3 card-padding">
             <h4>Reportes</h4>
@@ -400,9 +474,6 @@
 
         </div>
     </section>
-
-    <!-- Fin Sección Reportes -->
-
 
 
 
