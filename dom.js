@@ -57,7 +57,6 @@ formCreateCategory.addEventListener('submit', event => {
     event.target['name'].value = ''
 
     renderCategories(categories.getAll(), listCategories)
-})
 
 // Mostrar y ocultar secciones
 agregarOperacion.addEventListener('click', () => {
@@ -103,4 +102,5 @@ window.addEventListener('DOMContentLoaded', () =>{
   editOperation.style.display = 'none';
   reportes.style.display= 'none'
 })
+
 
