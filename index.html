@@ -109,8 +109,8 @@
                             </div>
 
                             <div class="input-field col s12">
-                                <select id="list-category">
-                                    <option value="" disabled selected>Categoría</option>
+                                <select name="list-category" id="list-category" class="lista-categoria">
+                                    <option value=""disabled selected>Categoría</option>
                                 </select>
                                 <label>Categoría</label>
                             </div>
@@ -200,11 +200,7 @@
                     <div class="field">
                             <label for="categoria-operation" class="label"> Categoría</label>
                             <div class="select is-fullwidth">
-                                <select id="listaCategoria"> 
-                                <option>Salidas</option>
-                                <option>Educación</option>
-                                <option>Transporte</option>
-                                <option>Trabajo</option>
+                                <select id="listaCategoria" class="lista-categoria"> 
                                 </select>
                             </div>
                     </div>
@@ -364,15 +360,15 @@
                         <label for="input_text">
                             <h6>Nombre</h6>
                         </label>
-                        <input class="file-path validate" type="text" id="name">
+                        <input class="file-path validate" type="text" id="input-editar-categoria">
                     </div>
                 </div>
 
                 <div class="right ">
-                    <a href="#categoria" class="btn left transparent black-text">
+                    <a href="#categoria" class="btn left transparent black-text" id="cancelar-editar-categoria">
                         Cancelar
                     </a>
-                    <button class="btn waves-effect waves-light" type="submit">
+                    <button class="btn waves-effect waves-light" type="submit" id="boton-editar-categoria">
                         Editar
                     </button>
                 </div>
