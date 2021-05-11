@@ -1,6 +1,10 @@
 const listCategories = document.getElementById('list-categories')
-const formCreateCategory = document.getElementById('form-create-category')
+const listaCategoria = document.getElementById('lista-categoria')
+const filtroListaCategoria = document.getElementById('filtro-lista-categoria')
+const agregarCategoria = document.getElementById('agregar-categoria')
+const listOperation = document.getElementById('list-operation')
 
+const botonHome = document.getElementById('boton-home')
 const createOperation = document.getElementById('create-operation') 
 const imagenSinOperaciones = document.getElementById('imagen-sin-operaciones') 
 const agregarOperacion = document.getElementById('agregar-operacion') 
@@ -8,15 +12,26 @@ const balance = document.getElementById('balance')
 const categoria = document.getElementById('categoria')
 const reportes = document.getElementById('reportes')
 const editarCategoria = document.getElementById('editar-categoria')
-const botonBalance = document.querySelectorAll('[href="#balance"]')
-const botonReporte = document.querySelector('[href="#reportes"]')
-const botonCategoria = document.querySelector('[href="#categoria"]')
+const botonBalance = document.getElementById('boton-balance')
+const botonReporte = document.getElementById('boton-reporte')
+const botonCategoria = document.getElementById('boton-categoria')
 const botonCancelNewOperation = document.getElementById('boton-cancel-new-operation')
 const editOperation = document.getElementById('edit-operation')
 const inputEditarCategoria = document.getElementById('input-editar-categoria')
 const cancelarEditarCategoria = document.getElementById('cancelar-editar-categoria')
 const botonEditarCategoria = document.getElementById('boton-editar-categoria')
-const opcionesCategoria = Array.from(document.querySelectorAll('.lista-categoria'))
+const btnAgregarOperacion = document.getElementById('btn-agregar-operation')
+const barraOperaciones = document.getElementById('barra-operaciones')
+const inputEditarOperacion = document.getElementById('input-editar-operacion')
+const editarMonto = document.getElementById('editar-monto')
+const editarTipo = document.getElementById('editar-tipo')
+const editarListaCategoria = document.getElementById('editar-lista-categoria')
+const editarFecha = document.getElementById('input-editar-fecha')
+const botonCancelEditOperation = document.getElementById('boton-cancel-edit-operation')
+const editarOperacion = document.getElementById('btn-editar-operation')
+const balanceGanancias = document.getElementById('balance-ganancias')
+const balanceGastos = document.getElementById('balance-gastos')
+const balanceTotal = document.getElementById('balance-total')
 
 
 const renderCategories = (array, element) => {
@@ -55,17 +70,17 @@ const renderCategories = (array, element) => {
 
 renderCategories(categories.getAll(), listCategories)
 
-formCreateCategory.addEventListener('submit', event => {
-    event.preventDefault()
-
+agregarCategoria.addEventListener('click', () => {
+  const name = document.getElementById('name')
     const category = {
-        name:  event.target['name'].value
+        name:  name.value
     }
-    if(category.name.length === 0)
-    return
+    if(category.name.length === 0){
+      return;
+    }
     categories.create(category)
 
-    event.target['name'].value = ''
+    name.value = ''
 
     renderCategories(categories.getAll(), listCategories)
 })
@@ -91,8 +106,8 @@ botonEditarCategoria.addEventListener('click', () =>{
 //Mostrar opciones categoría
 function mostrarOpcionesCategoria(){
   const arrayCategoria = categories.getAll();
-  loadCategoriesFilters(opcionesCategoria[0], arrayCategoria)
-  loadCategoriesFilters(opcionesCategoria[1], arrayCategoria)
+  loadCategoriesFilters(listaCategoria, arrayCategoria)
+  loadCategoriesFilters(filtroListaCategoria, arrayCategoria)
 }
 mostrarOpcionesCategoria()
 
@@ -107,6 +122,7 @@ function loadCategoriesFilters(elemento, arrayCategoria){
   let textTodos = document.createTextNode('Todas');
   optionTodos.appendChild(textTodos);
   elemento.appendChild(optionTodos);
+  elemento.selected = true;
   
   //Agrego al select las categorias
   arrayCategoria.forEach(categoria => {
@@ -128,19 +144,36 @@ agregarOperacion.addEventListener('click', () => {
   editOperation.style.display = 'none';
 })
 
-botonBalance[1].addEventListener('click', () =>{
+botonBalance.addEventListener('click', () =>{
+ mostrarHome()
+})
+
+botonHome.addEventListener('click', () =>{
+  mostrarHome()
+})
+
+function mostrarHome(){
   createOperation.style.display = 'none';
   balance.style.display = 'block';
   categoria.style.display = 'none';
   editarCategoria.style.display = 'none';
+  editOperation.style.display = 'none';
+  renderOperaciones(operations.getAll(), listOperation)
+  if(operations.getAll().length >0){
+    imagenSinOperaciones.style.display='none';
+  }else{
+    imagenSinOperaciones.style.display='block';
+  }
   mostrarOpcionesCategoria()
-})
+  calcularBalance()
+}
 
 botonCategoria.addEventListener('click', () =>{
   createOperation.style.display = 'none';
   balance.style.display = 'none';
   categoria.style.display = 'block';
   editarCategoria.style.display = 'none';
+  editOperation.style.display = 'none';
 })
 
 botonReporte.addEventListener('click', () =>{
@@ -149,20 +182,131 @@ botonReporte.addEventListener('click', () =>{
   categoria.style.display = 'none';
   editarCategoria.style.display = 'none';
   reportes.style.display= 'block'
+  editOperation.style.display = 'none';
 })
 
 botonCancelNewOperation.addEventListener('click', () =>{
-  balance.style.display = 'block';
-  createOperation.style.display = 'none';
+  mostrarHome()
 })
 
 window.addEventListener('DOMContentLoaded', () =>{
+  editOperation.style.display = 'none';
   createOperation.style.display = 'none';
   balance.style.display = 'block';
   categoria.style.display = 'none';
   editarCategoria.style.display = 'none';
   editOperation.style.display = 'none';
   reportes.style.display= 'none'
+  renderOperaciones(operations.getAll(), listOperation)
+  ocultarCuandoHayOperaciones()
+  calcularBalance()
+})
+
+//Agregando las operaciones
+btnAgregarOperacion.addEventListener('click', () =>{
+  debugger
+  const descripcion = document.getElementById('descripcion')
+  const monto = document.getElementById('monto')
+  const tipo = document.getElementById('tipo')
+  const categoria = document.getElementById('lista-categoria').selectedOptions[0];
+  const texto = categoria.textContent;
+  const fecha = document.getElementById('input-fecha')
+  const operaciones = {
+    descripcion: descripcion.value,
+    categoria: texto,
+    categoriaId: document.getElementById('lista-categoria').value,
+    fecha: fecha.value,
+    monto: monto.value,
+    tipo: tipo.value
+  }
+  if(operaciones.descripcion.length === 0 || 
+    operaciones.categoria.length === 'Todas' ||
+    operaciones.fecha.length === 0 ||
+    operaciones.monto.length === 0){
+      return
+    }
+  operations.create(operaciones);
+  mostrarHome()
+  ocultarCuandoHayOperaciones()
+})
+
+const renderOperaciones = (array, element) => {
+  element.innerHTML = ''
+
+  for (let el of array) {
+    const itemOperation = document.createElement('div')
+
+    itemOperation.innerHTML = `
+    <div class="row" ${el.id}>
+      <div class="col s3">${el.descripcion}</div>
+      <div class="col s3">${el.categoria}</div>
+      <div class="col s2">${el.fecha}</div>
+      <div class="col s2 ${el.tipo === 'Ganancia' ? 'montoGreen' : 'montoRed'}"> ${el.tipo ==='Ganancia' ? '+ $' + el.monto : '- $' + el.monto}</div>
+      <div class="col s2"> 
+        <div class="margin-right-plus blue-text operation-edit manito" id="${el.id}" >Editar</div>
+        <div class="margin-right-plus blue-text operation-delete manito">Eliminar</div>
+      </div>
+    </div>  
+    `
+
+    const edit = itemOperation.querySelector('.operation-edit')
+    const remove = itemOperation.querySelector('.operation-delete')
+    
+    edit.onclick = () => {
+      editOperation.style.display = 'block';
+      createOperation.style.display = 'none';
+      balance.style.display= 'none';
+      inputEditarOperacion.value = el.descripcion;
+      editarMonto.value = el.monto;
+      editarTipo.value = el.tipo;
+      editarListaCategoria.value = el.categoria.texto;
+      editarFecha.value = el.fecha;
+    }
+
+    remove.onclick = () => {
+      operations.remove(el.id)
+      renderOperaciones(operations.getAll(), listOperation)
+      ocultarCuandoHayOperaciones()
+      calcularBalance()
+    }
+
+    element.insertAdjacentElement('beforeend', itemOperation)
+  }
+}
+
+//Oculto y muestro cuando hay operaciones
+function ocultarCuandoHayOperaciones (){
+  renderOperaciones(operations.getAll(), listOperation)
+  if(operations.getAll().length > 0){
+    imagenSinOperaciones.style.display='none';
+    barraOperaciones.style.display='block'
+  }else{
+    imagenSinOperaciones.style.display='block';
+    barraOperaciones.style.display='none'
+  }
+}
+
+botonCancelEditOperation.addEventListener('click', ()=>{
+  mostrarHome()
 })
 
 
+//Balance calculo pantalla principal
+function calcularBalance() {
+  let storage = operations.getAll();
+  let ganancia = 0;
+  let gastos = 0;
+  let total = 0;
+
+  for (let i = 0; i < storage.length; i++) {
+    if (storage[i].tipo === 'Ganancia') {
+      ganancia += Number(storage[i].monto);
+    } else {
+      gastos += Number(storage[i].monto);
+    }
+    total = ganancia - gastos;
+  }
+  balanceGanancias.innerText = `+$${ganancia}`;
+  balanceGastos.innerText = `-$${gastos}`;
+  balanceTotal.innerText = `$${total}`;
+}

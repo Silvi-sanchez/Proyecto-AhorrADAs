@@ -19,8 +19,8 @@
     <div class="navbar-fixed ">
         <nav class="indigo accent-2">
             <div class="nav-wrapper container">
-                <a href="#balance" class="brand-logo">
-                    <img src="./img/money.ico" alt="">AhorrADAs
+                <a href="#balance" id='boton-home' class="brand-logo">
+                    <img src="./img/money.ico" alt="imagenDinero">AhorrADAs
                 </a>
                 <a href="#" data-target="menu-responsive" class="sidenav-trigger">
                     <i class="material-icons">menu</i>
@@ -28,7 +28,7 @@
                 <div class="right hide-on-med-and-down">
                     <ul class="tabs">
                         <li class="tab col s3">
-                            <a href="#balance" class="balance">
+                            <a href="#balance" id="boton-balance" class="balance">
                                 <span class="material-icons">
 
                                 equalizer
@@ -37,14 +37,14 @@
                                 Balance</a>
                         </li>
                         <li class="tab col s3">
-                            <a href="#categoria" class="categoria">
+                            <a href="#categoria" id="boton-categoria" class="categoria">
                                 <span class="material-icons">
                                 loyalty
                                 </span>
                                 Categoría</a>
                         </li>
                         <li class="tab col s3">
-                            <a href="#reportes" class="reportes">
+                            <a href="#reportes" id="boton-reporte" class="reportes">
                                 <span class="material-icons">
                                     folder_special
                                 </span>
@@ -71,25 +71,24 @@
                 <article class="card">
                     <div class="card-content space">
                         <h5>Balance</h5>
-
-                        <p class="is-flex is-justify-between is-gap-4">
-                            <span>
+                        <div class="is-flex is-justify-between is-gap-4">
+                            <div>
+                                Ganancia:
+                            </div>
+                            <div id="balance-ganancias" class="green-text text-darken-2">+ 0</div>
+                        </div>
+                        <div class="is-flex is-justify-between is-gap-4">
+                            <div>
                                 Gastos:
-                            </span>
-                            <span class="red-text text-darken-2" id="balance-gastos">$100</span>
-                        </p>
-                        <p class="is-flex is-justify-between is-gap-4">
-                            <span>
-                                Ganancias:
-                            </span>
-                            <span class="green-text text-darken-2" id="balance-ganancias">$300</span>
-                        </p>
-                        <p class="is-flex is-justify-between is-gap-4">
-                            <span>
+                            </div>
+                            <div id="balance-gastos" class="red-text text-darken-2">- 0</div>
+                        </div>
+                        <div class="is-flex is-justify-between is-gap-4">
+                            <div>
                                 Total:
-                            </span>
-                            <span id="balance-total">$200</span>
-                        </p>
+                            </div>
+                            <div id="balance-total">$ 0</div>
+                        </div>
                     </div>
                 </article>
 
@@ -109,7 +108,7 @@
                             </div>
 
                             <div class="input-field col s12">
-                                <select name="list-category" id="list-category" class="lista-categoria">
+                                <select id="filtro-lista-categoria">
                                     <option value=""disabled selected>Categoría</option>
                                 </select>
                                 <label>Categoría</label>
@@ -149,6 +148,26 @@
                             Crear operación
                         </a>
                     </header>
+            <div>
+                <div id="barra-operaciones" class="row">
+                    <div class="col s3">
+                      <h6><b>Descripción</b></h6>
+                    </div>
+                    <div class="col s3">
+                      <h6><b>Categoría</b></h6>
+                    </div>
+                    <div class="col s2">
+                      <h6><b>Fecha</b></h6>
+                    </div>
+                    <div class="col s2">
+                      <h6><b>Monto</b></h6>
+                    </div>
+                    <div class="col s2">
+                      <h6><b>Acciones</b></h6>
+                    </div>
+                    <div id="list-operation"></div>
+                </div>
+            </div>
             <div class="center-align" id="imagen-sin-operaciones">
                 <img class="imagen-responsive" src="./img/imagen_sin_resultado.svg" >
                 <h6>Sin resultados</h6>
@@ -167,7 +186,9 @@
                     <div class="field">
                         <label for="operation-description" class="label">Descripción</label>
                             <input 
+                            id="descripcion"
                             class="input"
+                            value=""
                             type="text"
                             placeholder=""
                             data-owner="create-operation"              
@@ -177,6 +198,7 @@
                     <div class="field">
                         <label class="monto-operation">Monto</label>
                             <input 
+                            id="monto"
                             class="input"
                             type="text"
                             placeholder=""
@@ -200,7 +222,7 @@
                     <div class="field">
                             <label for="categoria-operation" class="label"> Categoría</label>
                             <div class="select is-fullwidth">
-                                <select id="listaCategoria" class="lista-categoria"> 
+                                <select id="lista-categoria"> 
                                 </select>
                             </div>
                     </div>
@@ -212,7 +234,7 @@
                     
                     <div class="field">
                             <a id="btn-agregar-operation" class="waves-effect waves-light btn-small right">
-                            Agregar
+                                Agregar
                             </a>
                             <a class="btn-small right transparent black-text" id="boton-cancel-new-operation">
                                 Cancelar
@@ -221,36 +243,6 @@
             </for>
             </div>
         </div>  
- 
-        
-        <table class="responsive-table hide" >
-            <thead>
-                <tr>
-                    <th>Descripción</th>
-                    <th>Categoría</th>
-                    <th>Fecha</th>
-                    <th>Monto</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-
-            <tbody id="tabla-operations">
-                <tr>
-                    <td>Alvin</td>
-                    <td>Comida</td>
-                    <td>15/4/2021</td>
-                    <td>
-                        <p class="green-text text-darken-1">-$0</p>
-                    </td>
-                    <td>
-                        <div class="is-flex is-flex-wrap">
-                            <button class="btn-flat blue-text text-darken-2">Editar</button>
-                            <button class="btn-flat blue-text text-darken-2">Eliminar</button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </section>
 
     <!-- Inicia sección editar operación -->
@@ -262,6 +254,7 @@
                     <div class="field">
                         <label class="label">Descripción</label>
                             <input 
+                            id="input-editar-operacion"
                             class="input"
                             type="text"
                             placeholder=""
@@ -272,6 +265,7 @@
                     <div class="field">
                         <label class="label">Monto</label>
                             <input 
+                            id="editar-monto"
                             class="input"
                             type="text"
                             placeholder=""
@@ -284,9 +278,9 @@
                             <label for="tipo" class="label"> Tipo</label>
                         <div class="input-field col s10">
                             <div class="select is-fullwidth">
-                                <select id="tipo">
+                                <select id="editar-tipo"> 
                                     <option>Gasto</option>
-                                    <option>Ganancia</option>                                   
+                                    <option>Ganancia</option>                                    
                                 </select>
                             </div>
                         </div>
@@ -295,27 +289,23 @@
                     <div class="field">
                             <label for="listaCategoria" class="label"> Categoría</label>
                             <div class="select is-fullwidth">
-                                <select id="listaCategoria"> 
-                                <option>Salidas</option>
-                                <option>Educación</option>
-                                <option>Transporte</option>
-                                <option>Trabajo</option>
+                                <select id="editar-lista-categoria"> 
                                 </select>
                             </div>
                     </div>
                     
                     <div class="field">
                         <label for="date" class="label"> Fecha</label>  
-                        <input id="input-fecha" class="validate" type="date" name="label">       
+                        <input id="input-editar-fecha" class="validate" type="date" name="label">       
                     </div>
                     
                     <div class="field">
-                        <a class="btn-small right transparent black-text" id="boton-cancel-new-operation">
-                        Cancelar
-                        </a>
-                        <a id="btn-editar" class="waves-effect waves-light btn-small right">
+                        <a id="btn-editar-operation" class="waves-effect waves-light btn-small right">
                         Editar
-                        </a>   
+                        </a>  
+                        <a class="btn-small right transparent black-text" id="boton-cancel-edit-operation">
+                        Cancelar
+                        </a> 
                     </div>                      
             </for>
             </div>
@@ -328,11 +318,11 @@
         <div class="container z-depth-3 card-padding">
 
             <h4>Categorías</h4>
-            <form id="form-create-category">
+            <div>
 
                 <div class="file-field input-field ">
 
-                    <button class="waves-effect waves-light btn-small right"> Agregar </button>
+                    <button id="agregar-categoria" class="waves-effect waves-light btn-small right"> Agregar </button>
 
                     <div class="file-path-wrapper">
                         <label for="input_text">
@@ -341,7 +331,7 @@
                         <input class="file-path validate" type="text" id="name">
                     </div>
                 </div>
-            </form>
+            </div>
 
             <div class="row" id="list-categories">
             </div>
@@ -353,7 +343,7 @@
         <div class="container z-depth-3 card-padding">
 
             <h4>Editar categoria</h4>
-            <form id="form-create-category">
+            <div>
 
                 <div class="file-field input-field ">
                     <div class="file-path-wrapper">
@@ -365,14 +355,14 @@
                 </div>
 
                 <div class="right ">
-                    <a href="#categoria" class="btn left transparent black-text" id="cancelar-editar-categoria">
+                    <a href="#categoria" id="cancelar-editar-categoria" class="btn left transparent black-text">
                         Cancelar
                     </a>
-                    <button class="btn waves-effect waves-light" type="submit" id="boton-editar-categoria">
+                    <button id="boton-editar-categoria" class="btn waves-effect waves-light">
                         Editar
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
 
