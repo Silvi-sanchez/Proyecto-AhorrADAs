@@ -106,3 +106,14 @@ img{
     padding: 20px;
 }
 
+.montoGreen{
+    color: green;
+}
+
+.montoRed{
+    color: red;
+}
+
+.manito{
+    cursor: pointer;
+}
