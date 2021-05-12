@@ -32,7 +32,22 @@ const editarOperacion = document.getElementById('btn-editar-operation')
 const balanceGanancias = document.getElementById('balance-ganancias')
 const balanceGastos = document.getElementById('balance-gastos')
 const balanceTotal = document.getElementById('balance-total')
+const formFilter = document.getElementById('form-filter')
 
+const $ = (selector) => document.querySelector(selector)
+
+$('[data-filter="filter-by-date"]').value = new Date().toISOString().split('T')[0]
+
+const fillCategory = (categories) => {
+  const html = categories.reduce((acc, el) => acc + ` <option value="${el.id}">${el.name}</option>`)
+  const element = $('[data-filter="filter-by-category"]')
+  if(element) element.innerHTML = `
+    <option selected value="all">Todas</option>
+    ${html}
+  `
+}
+
+fillCategory(categories.getAll())
 
 const renderCategories = (array, element) => {
     element.innerHTML = ''
@@ -61,6 +76,7 @@ const renderCategories = (array, element) => {
       remove.onclick = () => {
         categories.remove(el.id)
         mostrarOpcionesCategoria()
+        fillCategory(categories.getAll())
         renderCategories(categories.getAll(), listCategories)
       }
   
@@ -82,6 +98,7 @@ agregarCategoria.addEventListener('click', () => {
 
     name.value = ''
 
+    fillCategory(categories.getAll())
     renderCategories(categories.getAll(), listCategories)
 })
 
@@ -98,7 +115,9 @@ botonEditarCategoria.addEventListener('click', () =>{
   editarCategoria.style.display = 'none';
   categoria.style.display = 'block';
 
+
   mostrarOpcionesCategoria()
+  fillCategory(categories.getAll())
   renderCategories(categories.getAll(), listCategories)
 })
 
@@ -107,7 +126,7 @@ botonEditarCategoria.addEventListener('click', () =>{
 function mostrarOpcionesCategoria(){
   const arrayCategoria = categories.getAll();
   loadCategoriesFilters(listaCategoria, arrayCategoria)
-  loadCategoriesFilters(filtroListaCategoria, arrayCategoria)
+  // loadCategoriesFilters(filtroListaCategoria, arrayCategoria)
 }
 mostrarOpcionesCategoria()
 
@@ -165,6 +184,7 @@ function mostrarHome(){
     imagenSinOperaciones.style.display='block';
   }
   mostrarOpcionesCategoria()
+  fillCategory(categories.getAll())
   calcularBalance()
 }
 
@@ -231,9 +251,31 @@ btnAgregarOperacion.addEventListener('click', () =>{
 })
 
 const renderOperaciones = (array, element) => {
-  element.innerHTML = ''
+    // filters
+    const type = $('[data-filter="filter-by-type"]').value
+    const category = $('[data-filter="filter-by-category"]').value
+    const date = $('[data-filter="filter-by-date"]').value
+    const order = $('[data-filter="order-by"]').value
 
-  for (let el of array) {
+    console.log(
+      type,
+      category,
+      date, 
+      order
+    )
+
+    let operations = filterByType(array, type)
+    console.log( 'type', operations)
+    operations = filterByCategory(operations, category)
+    console.log( 'category', operations)
+    operations = filterByDate(operations, date)
+    console.log('date', operations)
+    operations = orderBy([...operations], order)
+    console.log('order', operations)
+
+    element.innerHTML = ''
+
+  for (let el of operations) {
     const itemOperation = document.createElement('div')
 
     itemOperation.innerHTML = `
@@ -310,3 +352,13 @@ function calcularBalance() {
   balanceGastos.innerText = `-$${gastos}`;
   balanceTotal.innerText = `$${total}`;
 }
+
+// Filtros
+
+console.log(formFilter)
+
+formFilter.addEventListener('change', (event) => {
+  event.preventDefault()
+  console.log('change')
+  renderOperaciones(operations.getAll(), listOperation)
+})
