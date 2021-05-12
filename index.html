@@ -96,43 +96,40 @@
                     <div class="card-content">
                         <h5>Filtros</h5>
 
-                        <div class="row">
+                        <form class="row" id="form-filter">
                             <div class="input-field col s12">
-                                <select>
-                                    <option value="" disabled selected>Tipo</option>
-                                    <option value="1">Ganancia</option>
-                                    <option value="2">Gasto</option>
-                                    <option value="3">Todo</option>
+                                <select data-filter="filter-by-type">
+                                    <option value="all" selected>Todos</option>
+                                    <option value="spending">Gastos</option>
+                                    <option value="profits">Ganancias</option>
                                 </select>
                                 <label>Tipo</label>
                             </div>
 
                             <div class="input-field col s12">
-                                <select id="filtro-lista-categoria">
-                                    <option value=""disabled selected>Categoría</option>
+                                <select data-filter="filter-by-category">
                                 </select>
                                 <label>Categoría</label>
                             </div>
 
                             <div class="input-field col s12">
-                                <input value="Alvin" id="date" type="date" class="validate">
+                                <input value="Alvin" id="date" type="date" class="validate" data-filter="filter-by-date">
                                 <label class="active" for="date">Desde</label>
                             </div>
 
 
                             <div class="input-field col s12">
-                                <select id="list-order">
-                                    <option value="" disabled selected>Ordenar por...</option>
-                                    <option value="A-Z">A-Z</option>
-                                    <option value="Z-A">Z-A</option>
-                                    <option value="Más reciente">Más reciente</option>
-                                    <option value="Menos reciente">Menos reciente</option>
-                                    <option value="Mayor monto">Mayor monto</option>
-                                    <option value="Menor monto">Menor monto</option>
+                                <select id="list-order" data-filter="order-by">
+                                    <option value="date-desc" selected>Más reciente</option>
+                                    <option value="date-asc">Menos reciente</option>
+                                    <option value="amount-asc">Menor monto</option>
+                                    <option value="amount-desc">Mayor monto</option>
+                                    <option value="asc">A/Z</option>
+                                    <option value="desc">Z/A</option>
                                 </select>
                                 <label>Ordenar por</label>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </article>
             </aside>
@@ -212,8 +209,8 @@
                         <div class="input-field col s10">
                             <div class="select is-fullwidth">
                                 <select id="tipo">
-                                    <option>Gasto</option>
-                                    <option>Ganancia</option>                                   
+                                    <option value="spending">Gastos</option>
+                                    <option value="profits">Ganancias</option>                                
                                 </select>
                             </div>
                         </div>
