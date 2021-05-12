@@ -33,21 +33,14 @@ const balanceGanancias = document.getElementById('balance-ganancias')
 const balanceGastos = document.getElementById('balance-gastos')
 const balanceTotal = document.getElementById('balance-total')
 const formFilter = document.getElementById('form-filter')
+const editOperationForm = document.getElementById('edit-operation-form')
+const inputsDate = Array.from(document.querySelectorAll('[type="date"]'))
 
 const $ = (selector) => document.querySelector(selector)
 
-$('[data-filter="filter-by-date"]').value = new Date().toISOString().split('T')[0]
+// Poner fecha actual a los inputs date
+inputsDate.map((el) => el ? el.value = new Date().toISOString().split('T')[0] : '')
 
-const fillCategory = (categories) => {
-  const html = categories.reduce((acc, el) => acc + ` <option value="${el.id}">${el.name}</option>`)
-  const element = $('[data-filter="filter-by-category"]')
-  if(element) element.innerHTML = `
-    <option selected value="all">Todas</option>
-    ${html}
-  `
-}
-
-fillCategory(categories.getAll())
 
 const renderCategories = (array, element) => {
     element.innerHTML = ''
@@ -76,7 +69,6 @@ const renderCategories = (array, element) => {
       remove.onclick = () => {
         categories.remove(el.id)
         mostrarOpcionesCategoria()
-        fillCategory(categories.getAll())
         renderCategories(categories.getAll(), listCategories)
       }
   
@@ -98,7 +90,6 @@ agregarCategoria.addEventListener('click', () => {
 
     name.value = ''
 
-    fillCategory(categories.getAll())
     renderCategories(categories.getAll(), listCategories)
 })
 
@@ -117,7 +108,6 @@ botonEditarCategoria.addEventListener('click', () =>{
 
 
   mostrarOpcionesCategoria()
-  fillCategory(categories.getAll())
   renderCategories(categories.getAll(), listCategories)
 })
 
@@ -126,7 +116,8 @@ botonEditarCategoria.addEventListener('click', () =>{
 function mostrarOpcionesCategoria(){
   const arrayCategoria = categories.getAll();
   loadCategoriesFilters(listaCategoria, arrayCategoria)
-  // loadCategoriesFilters(filtroListaCategoria, arrayCategoria)
+  loadCategoriesFilters(filtroListaCategoria, arrayCategoria)
+  loadCategoriesFilters(editarListaCategoria, arrayCategoria)  
 }
 mostrarOpcionesCategoria()
 
@@ -137,7 +128,7 @@ function loadCategoriesFilters(elemento, arrayCategoria){
   }
 
   let optionTodos = document.createElement("option");
-  optionTodos.setAttribute("value", -1);
+  optionTodos.setAttribute("value", 'all');
   let textTodos = document.createTextNode('Todas');
   optionTodos.appendChild(textTodos);
   elemento.appendChild(optionTodos);
@@ -184,7 +175,6 @@ function mostrarHome(){
     imagenSinOperaciones.style.display='block';
   }
   mostrarOpcionesCategoria()
-  fillCategory(categories.getAll())
   calcularBalance()
 }
 
@@ -250,6 +240,13 @@ btnAgregarOperacion.addEventListener('click', () =>{
   ocultarCuandoHayOperaciones()
 })
 
+const removeOperation = (id) => {
+  operations.remove(id)
+  renderOperaciones(operations.getAll(), listOperation)
+  ocultarCuandoHayOperaciones()
+  calcularBalance()
+}
+
 const renderOperaciones = (array, element) => {
     // filters
     const type = $('[data-filter="filter-by-type"]').value
@@ -257,21 +254,10 @@ const renderOperaciones = (array, element) => {
     const date = $('[data-filter="filter-by-date"]').value
     const order = $('[data-filter="order-by"]').value
 
-    console.log(
-      type,
-      category,
-      date, 
-      order
-    )
-
     let operations = filterByType(array, type)
-    console.log( 'type', operations)
     operations = filterByCategory(operations, category)
-    console.log( 'category', operations)
     operations = filterByDate(operations, date)
-    console.log('date', operations)
     operations = orderBy([...operations], order)
-    console.log('order', operations)
 
     element.innerHTML = ''
 
@@ -299,17 +285,15 @@ const renderOperaciones = (array, element) => {
       createOperation.style.display = 'none';
       balance.style.display= 'none';
       inputEditarOperacion.value = el.descripcion;
+      inputEditarOperacion.setAttribute('data-id', el.id);
       editarMonto.value = el.monto;
       editarTipo.value = el.tipo;
-      editarListaCategoria.value = el.categoria.texto;
+      editarListaCategoria.value = el.categoriaId;
       editarFecha.value = el.fecha;
     }
 
     remove.onclick = () => {
-      operations.remove(el.id)
-      renderOperaciones(operations.getAll(), listOperation)
-      ocultarCuandoHayOperaciones()
-      calcularBalance()
+      removeOperation(el.id)
     }
 
     element.insertAdjacentElement('beforeend', itemOperation)
@@ -353,12 +337,29 @@ function calcularBalance() {
   balanceTotal.innerText = `$${total}`;
 }
 
+
+// Editar operacion
+editOperationForm.addEventListener('submit', event => {
+  event.preventDefault()
+  const newOperation = {
+    descripcion: event.target['description'].value,
+    categoriaId: event.target['category'].value,
+    categoria: categories.get(event.target['category'].value).name,
+    fecha: event.target['date'].value,
+    monto: event.target['monto'].value,
+    tipo: event.target['type'].value
+  }
+  const operationId = event.target['description'].getAttribute('data-id')
+  operations.edit(operationId , newOperation)
+  renderOperaciones(operations.getAll(), listOperation)
+  mostrarHome()
+  ocultarCuandoHayOperaciones()
+  calcularBalance()
+})
+
 // Filtros
-
-console.log(formFilter)
-
 formFilter.addEventListener('change', (event) => {
   event.preventDefault()
-  console.log('change')
+  mostrarHome()
   renderOperaciones(operations.getAll(), listOperation)
 })
