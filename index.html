@@ -107,7 +107,7 @@
                             </div>
 
                             <div class="input-field col s12">
-                                <select data-filter="filter-by-category">
+                                <select data-filter="filter-by-category" id="filtro-lista-categoria">
                                 </select>
                                 <label>Categoría</label>
                             </div>
@@ -246,7 +246,7 @@
     <section id="edit-operation" class="section-padding">
         <div class="container z-depth-3 card-padding">
             <div class="card-content">
-            <for class="box">
+            <form class="box" id="edit-operation-form">
                 <h4 class="titulo">Editar Operación</h4>
                     <div class="field">
                         <label class="label">Descripción</label>
@@ -275,9 +275,9 @@
                             <label for="tipo" class="label"> Tipo</label>
                         <div class="input-field col s10">
                             <div class="select is-fullwidth">
-                                <select id="editar-tipo"> 
-                                    <option>Gasto</option>
-                                    <option>Ganancia</option>                                    
+                                <select id="editar-tipo" name="type"> 
+                                    <option value="spending">Gastos</option>
+                                    <option value="profits">Ganancias</option>                                  
                                 </select>
                             </div>
                         </div>
@@ -286,25 +286,25 @@
                     <div class="field">
                             <label for="listaCategoria" class="label"> Categoría</label>
                             <div class="select is-fullwidth">
-                                <select id="editar-lista-categoria"> 
+                                <select id="editar-lista-categoria" name="category"> 
                                 </select>
                             </div>
                     </div>
                     
                     <div class="field">
                         <label for="date" class="label"> Fecha</label>  
-                        <input id="input-editar-fecha" class="validate" type="date" name="label">       
+                        <input id="input-editar-fecha" class="validate" type="date" name="date">       
                     </div>
                     
                     <div class="field">
-                        <a id="btn-editar-operation" class="waves-effect waves-light btn-small right">
+                        <button type="submit"  id="btn-editar-operation" class="waves-effect waves-light btn-small right">
                         Editar
-                        </a>  
+                        </button>  
                         <a class="btn-small right transparent black-text" id="boton-cancel-edit-operation">
                         Cancelar
                         </a> 
                     </div>                      
-            </for>
+            </form>
             </div>
         </div>  
     </section>
