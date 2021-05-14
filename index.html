@@ -28,7 +28,7 @@
                 <div class="right hide-on-med-and-down">
                     <ul class="tabs">
                         <li class="tab col s3">
-                            <a href="#balance" id="boton-balance" class="balance">
+                            <a href="#" id="boton-balance" class="balance">
                                 <span class="material-icons">
 
                                 equalizer
@@ -37,14 +37,14 @@
                                 Balance</a>
                         </li>
                         <li class="tab col s3">
-                            <a href="#categoria" id="boton-categoria" class="categoria">
+                            <a href="#" id="boton-categoria" class="categoria">
                                 <span class="material-icons">
                                 loyalty
                                 </span>
                                 Categoría</a>
                         </li>
                         <li class="tab col s3">
-                            <a href="#reportes" id="boton-reporte" class="reportes">
+                            <a href="#" id="boton-reporte" class="reportes" onclick="generarReportes()">
                                 <span class="material-icons">
                                     folder_special
                                 </span>
@@ -58,9 +58,9 @@
 
     <!-- Menú hamburguesa -->
     <ul class="sidenav" id="menu-responsive">
-        <li><a href="#balance">Balance</a></li>
-        <li><a href="#categoria">Categoría</a></li>
-        <li><a href="#reportes">Reportes</a></li>
+        <li><a href="#" onclick="irABalance()">Balance</a></li>
+        <li><a href="#" onclick="irACategoria()">Categoría</a></li>
+        <li><a href="#" onclick="irAReportes()">Reportes</a></li>
     </ul>
 
 
@@ -95,14 +95,13 @@
                 <article class="card">
                     <div class="card-content">
                         <h5>Filtros</h5>
-
-                        <div class="row">
+                        <div id="filtros" class="row">
                             <div class="input-field col s12">
-                                <select>
+                                <select id="select-tipo">
                                     <option value="" disabled selected>Tipo</option>
                                     <option value="1">Ganancia</option>
                                     <option value="2">Gasto</option>
-                                    <option value="3">Todo</option>
+                                    <option value="3">Todos</option>
                                 </select>
                                 <label>Tipo</label>
                             </div>
@@ -143,7 +142,7 @@
                 <div class="card-content">
                     <header class="is-flex is-justify-between is-items-center is-flex-wrap">
                         <h5>Operaciones</h5>
-                        <a href="#create-operation" class="waves-effect waves-light btn-small" id="agregar-operacion">
+                        <a href="#" class="waves-effect waves-light btn-small" id="agregar-operacion">
                             <i class="material-icons left">add</i>
                             Crear operación
                         </a>
@@ -259,7 +258,7 @@
                             type="text"
                             placeholder=""
                             data-owner="create-operation"              
-                            name="description"/>
+                            name="descripcion"/>
                     </div>
 
                     <div class="field">
@@ -289,7 +288,7 @@
                     <div class="field">
                             <label for="listaCategoria" class="label"> Categoría</label>
                             <div class="select is-fullwidth">
-                                <select id="editar-lista-categoria"> 
+                                <select id="edito-lista-categoria"> 
                                 </select>
                             </div>
                     </div>
@@ -355,7 +354,7 @@
                 </div>
 
                 <div class="right ">
-                    <a href="#categoria" id="cancelar-editar-categoria" class="btn left transparent black-text">
+                    <a href="#" id="cancelar-editar-categoria" class="btn left transparent black-text">
                         Cancelar
                     </a>
                     <button id="boton-editar-categoria" class="btn waves-effect waves-light">
@@ -369,13 +368,37 @@
     <!-- Inicio Sección Reportes -->
     <section class="section-padding " id="reportes">
         <div class="container z-depth-3 card-padding">
-            <h4>Reportes</h4>
-
+            <h4>Reportes</h4><br>
             <div class="responsibe-table">
-                <h5>Resumen</h5>
-                <table>
+                <h5><b>Resumen</b></h5>
+                <div id="resumen-reportes">
+                </div>
+            </div>
+            <div>
+                <br>
+                <h5><b>Totales por categoría</b></h5><br>
+                <div class="mb-4">
+                    <div class="column">Categoría</div><br>
+                    <div class="column">Ganancias</div><br>
+                    <div class="column">Gastos</div><br>
+                    <div class="column">Balance</div><br>
+                </div>
+            </div>
+            <div id="reportes-total-categorias"></div>
+            <br>
+                <h5><b>Totales por mes</b></h5><br>
+                <div class="mb-4">
+                  <div class="column">Mes</div><br>
+                  <div class="column">Ganancias</div><br>
+                  <div class="column">Gasto</div><br>
+                  <div class="column">Balance</div><br>
+                </div>
+                <div id="reportes-total-mes" class="mb-4"></div>
+            </div>
+        </div>
+    </section>
 
-                    <tbody>
+                    <!-- <tbody>
                         <tr>
                             <td>Categoria con mayor ganancia</td>
                             <td><span> Trabajo</span>
@@ -422,7 +445,7 @@
                     </thead>
 
                     <tbody>
-                        <!-- Esto se tiene que generar de manera dinámica -->
+                        Esto se tiene que generar de manera dinámica
                         <tr>
                             <td>Comida</td>
                             <td class="green-text">$10.87</td>
@@ -458,9 +481,9 @@
 
             </div>
 
-        </div>
+        </div> 
     </section>
-
+-->
 
 
     <!-- Compiled and minified JavaScript -->
@@ -468,7 +491,7 @@
 
     <!-- CDN: uuidv4 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
-
+  
     <script src="./app.js"></script>
     <script src="./crude.js"></script>
     <script src="./dom.js"></script>

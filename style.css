@@ -117,3 +117,14 @@ img{
 .manito{
     cursor: pointer;
 }
+
+#resumen-reportes{
+    padding-top: 0;
+}
+
+/* Responsive */
+@media only screen and (max-width: 992px){
+nav .brand-logo{
+    font-size: 15px !important;
+}
+}
