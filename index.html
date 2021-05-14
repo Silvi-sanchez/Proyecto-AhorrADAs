@@ -107,31 +107,29 @@
                             </div>
 
                             <div class="input-field col s12">
-                                <select id="filtro-lista-categoria">
-                                    <option value=""disabled selected>Categoría</option>
+                                <select data-filter="filter-by-category" id="filtro-lista-categoria">
                                 </select>
                                 <label>Categoría</label>
                             </div>
 
                             <div class="input-field col s12">
-                                <input value="Alvin" id="date" type="date" class="validate">
+                                <input value="Alvin" id="date" type="date" class="validate" data-filter="filter-by-date">
                                 <label class="active" for="date">Desde</label>
                             </div>
 
 
                             <div class="input-field col s12">
-                                <select id="list-order">
-                                    <option value="" disabled selected>Ordenar por...</option>
-                                    <option value="A-Z">A-Z</option>
-                                    <option value="Z-A">Z-A</option>
-                                    <option value="Más reciente">Más reciente</option>
-                                    <option value="Menos reciente">Menos reciente</option>
-                                    <option value="Mayor monto">Mayor monto</option>
-                                    <option value="Menor monto">Menor monto</option>
+                                <select id="list-order" data-filter="order-by">
+                                    <option value="date-desc" selected>Más reciente</option>
+                                    <option value="date-asc">Menos reciente</option>
+                                    <option value="amount-asc">Menor monto</option>
+                                    <option value="amount-desc">Mayor monto</option>
+                                    <option value="asc">A/Z</option>
+                                    <option value="desc">Z/A</option>
                                 </select>
                                 <label>Ordenar por</label>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </article>
             </aside>
@@ -211,8 +209,8 @@
                         <div class="input-field col s10">
                             <div class="select is-fullwidth">
                                 <select id="tipo">
-                                    <option>Gasto</option>
-                                    <option>Ganancia</option>                                   
+                                    <option value="spending">Gastos</option>
+                                    <option value="profits">Ganancias</option>                                
                                 </select>
                             </div>
                         </div>
@@ -248,7 +246,7 @@
     <section id="edit-operation" class="section-padding">
         <div class="container z-depth-3 card-padding">
             <div class="card-content">
-            <for class="box">
+            <form class="box" id="edit-operation-form">
                 <h4 class="titulo">Editar Operación</h4>
                     <div class="field">
                         <label class="label">Descripción</label>
@@ -277,9 +275,9 @@
                             <label for="tipo" class="label"> Tipo</label>
                         <div class="input-field col s10">
                             <div class="select is-fullwidth">
-                                <select id="editar-tipo"> 
-                                    <option>Gasto</option>
-                                    <option>Ganancia</option>                                    
+                                <select id="editar-tipo" name="type"> 
+                                    <option value="spending">Gastos</option>
+                                    <option value="profits">Ganancias</option>                                  
                                 </select>
                             </div>
                         </div>
@@ -295,18 +293,18 @@
                     
                     <div class="field">
                         <label for="date" class="label"> Fecha</label>  
-                        <input id="input-editar-fecha" class="validate" type="date" name="label">       
+                        <input id="input-editar-fecha" class="validate" type="date" name="date">       
                     </div>
                     
                     <div class="field">
-                        <a id="btn-editar-operation" class="waves-effect waves-light btn-small right">
+                        <button type="submit"  id="btn-editar-operation" class="waves-effect waves-light btn-small right">
                         Editar
-                        </a>  
+                        </button>  
                         <a class="btn-small right transparent black-text" id="boton-cancel-edit-operation">
                         Cancelar
                         </a> 
                     </div>                      
-            </for>
+            </form>
             </div>
         </div>  
     </section>

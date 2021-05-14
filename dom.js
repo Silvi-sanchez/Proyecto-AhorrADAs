@@ -259,6 +259,13 @@ function limpiarFormulario() {
   document.getElementById("fecha").value = "";
 }
 
+const removeOperation = (id) => {
+  operations.remove(id)
+  renderOperaciones(operations.getAll(), listOperation)
+  ocultarCuandoHayOperaciones()
+  calcularBalance()
+}
+
 const renderOperaciones = (array, element) => {
   element.innerHTML = "";
   for (let el of array) {
@@ -289,6 +296,7 @@ const renderOperaciones = (array, element) => {
       createOperation.style.display = "none";
       balance.style.display = "none";
       inputEditarOperacion.value = el.descripcion;
+      inputEditarOperacion.setAttribute('data-id', el.id);
       editarMonto.value = el.monto;
       editarFecha.value = el.fecha;
       editarTipo.value = el.tipo;
@@ -358,7 +366,6 @@ function calcularBalance() {
   balanceGastos.innerText = `-$${gastos}`;
   balanceTotal.innerText = `$${total}`;
 }
-
 
 
 //--------------FILTROS-----------------------
