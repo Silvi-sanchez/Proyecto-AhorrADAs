@@ -1,244 +1,263 @@
-const listCategories = document.getElementById('list-categories')
-const listaCategoria = document.getElementById('lista-categoria')
-const filtroListaCategoria = document.getElementById('filtro-lista-categoria')
-const agregarCategoria = document.getElementById('agregar-categoria')
-const listOperation = document.getElementById('list-operation')
+const listCategories = document.getElementById("list-categories");
+const listaCategoria = document.getElementById("lista-categoria");
+const filtroListaCategoria = document.getElementById("filtro-lista-categoria");
+const agregarCategoria = document.getElementById("agregar-categoria");
+const listOperation = document.getElementById("list-operation");
 
-const botonHome = document.getElementById('boton-home')
-const createOperation = document.getElementById('create-operation') 
-const imagenSinOperaciones = document.getElementById('imagen-sin-operaciones') 
-const agregarOperacion = document.getElementById('agregar-operacion') 
-const balance = document.getElementById('balance')
-const categoria = document.getElementById('categoria')
-const reportes = document.getElementById('reportes')
-const editarCategoria = document.getElementById('editar-categoria')
-const botonBalance = document.getElementById('boton-balance')
-const botonReporte = document.getElementById('boton-reporte')
-const botonCategoria = document.getElementById('boton-categoria')
-const botonCancelNewOperation = document.getElementById('boton-cancel-new-operation')
-const editOperation = document.getElementById('edit-operation')
-const inputEditarCategoria = document.getElementById('input-editar-categoria')
-const cancelarEditarCategoria = document.getElementById('cancelar-editar-categoria')
-const botonEditarCategoria = document.getElementById('boton-editar-categoria')
-const btnAgregarOperacion = document.getElementById('btn-agregar-operation')
-const barraOperaciones = document.getElementById('barra-operaciones')
-const inputEditarOperacion = document.getElementById('input-editar-operacion')
-const editarMonto = document.getElementById('editar-monto')
-const editarTipo = document.getElementById('editar-tipo')
-const editarListaCategoria = document.getElementById('editar-lista-categoria')
-const editarFecha = document.getElementById('input-editar-fecha')
-const botonCancelEditOperation = document.getElementById('boton-cancel-edit-operation')
-const editarOperacion = document.getElementById('btn-editar-operation')
-const balanceGanancias = document.getElementById('balance-ganancias')
-const balanceGastos = document.getElementById('balance-gastos')
-const balanceTotal = document.getElementById('balance-total')
-const formFilter = document.getElementById('form-filter')
-const editOperationForm = document.getElementById('edit-operation-form')
-const inputsDate = Array.from(document.querySelectorAll('[type="date"]'))
-
-const $ = (selector) => document.querySelector(selector)
-
-// Poner fecha actual a los inputs date
-inputsDate.map((el) => el ? el.value = new Date().toISOString().split('T')[0] : '')
-
+const botonHome = document.getElementById("boton-home");
+const createOperation = document.getElementById("create-operation");
+const imagenSinOperaciones = document.getElementById("imagen-sin-operaciones");
+const agregarOperacion = document.getElementById("agregar-operacion");
+const balance = document.getElementById("balance");
+const categoria = document.getElementById("categoria");
+const reportes = document.getElementById("reportes");
+const editarCategoria = document.getElementById("editar-categoria");
+const botonBalance = document.getElementById("boton-balance");
+const botonReporte = document.getElementById("boton-reporte");
+const botonCategoria = document.getElementById("boton-categoria");
+const botonCancelNewOperation = document.getElementById(
+  "boton-cancel-new-operation"
+);
+const editOperation = document.getElementById("edit-operation");
+const inputEditarCategoria = document.getElementById("input-editar-categoria");
+const cancelarEditarCategoria = document.getElementById(
+  "cancelar-editar-categoria"
+);
+const botonEditarCategoria = document.getElementById("boton-editar-categoria");
+const btnAgregarOperacion = document.getElementById("btn-agregar-operation");
+const barraOperaciones = document.getElementById("barra-operaciones");
+const inputEditarOperacion = document.getElementById("input-editar-operacion");
+const editarMonto = document.getElementById("editar-monto");
+const editarTipo = document.getElementById("editar-tipo");
+const editoListaCategoria = document.getElementById("edito-lista-categoria");
+const editarFecha = document.getElementById("input-editar-fecha");
+const botonCancelEditOperation = document.getElementById(
+  "boton-cancel-edit-operation"
+);
+const editarOperacion = document.getElementById("btn-editar-operation");
+const balanceGanancias = document.getElementById("balance-ganancias");
+const balanceGastos = document.getElementById("balance-gastos");
+const balanceTotal = document.getElementById("balance-total");
+let idElementoAEditar;
 
 const renderCategories = (array, element) => {
-    element.innerHTML = ''
-  
-    for (let el of array) {
-      const itemCategory = document.createElement('div')
+  element.innerHTML = "";
 
-      itemCategory.innerHTML = `
+  for (let el of array) {
+    const itemCategory = document.createElement("div");
+
+    itemCategory.innerHTML = `
         <div class="row cursor-pointer" id="${el.id}">
             <div class="col margin-top-0 s8 green-text">${el.name}</div>
             <div class="col s2 blue-text category-edit" id="${el.id}" >Editar</div>
             <div class="col s2 blue-text category-delete">Eliminar</div>
         </div>  
-        `
-  
-      const edit = itemCategory.querySelector('.category-edit')
-      const remove = itemCategory.querySelector('.category-delete')
-      
-      edit.onclick = () => {
-        editarCategoria.style.display = 'block';
-        categoria.style.display = 'none';
-        inputEditarCategoria.value = el.name;
-        inputEditarCategoria.id = el.id;
-      }
-  
-      remove.onclick = () => {
-        categories.remove(el.id)
-        mostrarOpcionesCategoria()
-        renderCategories(categories.getAll(), listCategories)
-      }
-  
-      element.insertAdjacentElement('beforeend', itemCategory)
-    }
-}
+        `;
 
-renderCategories(categories.getAll(), listCategories)
+    const edit = itemCategory.querySelector(".category-edit");
+    const remove = itemCategory.querySelector(".category-delete");
 
-agregarCategoria.addEventListener('click', () => {
-  const name = document.getElementById('name')
-    const category = {
-        name:  name.value
-    }
-    if(category.name.length === 0){
-      return;
-    }
-    categories.create(category)
+    edit.onclick = () => {
+      editarCategoria.style.display = "block";
+      categoria.style.display = "none";
+      inputEditarCategoria.value = el.name;
+      inputEditarCategoria.id = el.id;
+    };
 
-    name.value = ''
+    remove.onclick = () => {
+      categories.remove(el.id);
+      mostrarOpcionesCategoria();
+      renderCategories(categories.getAll(), listCategories);
+    };
 
-    renderCategories(categories.getAll(), listCategories)
-})
+    element.insertAdjacentElement("beforeend", itemCategory);
+  }
+};
 
+renderCategories(categories.getAll(), listCategories);
+
+agregarCategoria.addEventListener("click", () => {
+  const name = document.getElementById("name");
+  const category = {
+    name: name.value,
+  };
+  if (category.name.length === 0) {
+    return;
+  }
+  categories.create(category);
+
+  name.value = "";
+
+  renderCategories(categories.getAll(), listCategories);
+});
 
 //Botones cancelar y editar categoría
-cancelarEditarCategoria.addEventListener('click', () =>{
-  editarCategoria.style.display = 'none';
-  categoria.style.display = 'block';
-})
+cancelarEditarCategoria.addEventListener("click", () => {
+  editarCategoria.style.display = "none";
+  categoria.style.display = "block";
+});
 
-botonEditarCategoria.addEventListener('click', () =>{
-  inputEditarCategoria.value; 
-  categories.edit(inputEditarCategoria.id, {name: inputEditarCategoria.value})
-  editarCategoria.style.display = 'none';
-  categoria.style.display = 'block';
+botonEditarCategoria.addEventListener("click", () => {
+  inputEditarCategoria.value;
+  categories.edit(inputEditarCategoria.id, {
+    name: inputEditarCategoria.value,
+  });
+  editarCategoria.style.display = "none";
+  categoria.style.display = "block";
 
-
-  mostrarOpcionesCategoria()
-  renderCategories(categories.getAll(), listCategories)
-})
-
+  mostrarOpcionesCategoria();
+  renderCategories(categories.getAll(), listCategories);
+});
 
 //Mostrar opciones categoría
-function mostrarOpcionesCategoria(){
+function mostrarOpcionesCategoria() {
   const arrayCategoria = categories.getAll();
-  loadCategoriesFilters(listaCategoria, arrayCategoria)
-  loadCategoriesFilters(filtroListaCategoria, arrayCategoria)
-  loadCategoriesFilters(editarListaCategoria, arrayCategoria)  
+  loadCategoriesFilters(listaCategoria, arrayCategoria);
+  loadCategoriesFilters(filtroListaCategoria, arrayCategoria);
+  loadCategoriesFilters(editoListaCategoria, arrayCategoria);
 }
-mostrarOpcionesCategoria()
+mostrarOpcionesCategoria();
 
-function loadCategoriesFilters(elemento, arrayCategoria){
+function loadCategoriesFilters(elemento, arrayCategoria) {
   //Limpio el elemento para recargarlo
-  while(elemento.length>0){
-    elemento.remove(0)
+  while (elemento.length > 0) {
+    elemento.remove(0);
   }
 
   let optionTodos = document.createElement("option");
-  optionTodos.setAttribute("value", 'all');
-  let textTodos = document.createTextNode('Todas');
+  optionTodos.setAttribute("value", -1);
+  let textTodos = document.createTextNode("Todas");
   optionTodos.appendChild(textTodos);
   elemento.appendChild(optionTodos);
   elemento.selected = true;
-  
+
   //Agrego al select las categorias
-  arrayCategoria.forEach(categoria => {
+  arrayCategoria.forEach((categoria) => {
     let option = document.createElement("option");
     option.setAttribute("value", categoria.id);
     let text = document.createTextNode(categoria.name);
     option.appendChild(text);
     elemento.appendChild(option);
-  })
-  M.FormSelect.init(elemento)
+  });
+  M.FormSelect.init(elemento);
 }
 
 // Mostrar y ocultar secciones
-agregarOperacion.addEventListener('click', () => {
-  createOperation.style.display = 'block';
-  balance.style.display = 'none';
-  categoria.style.display = 'none';
-  editarCategoria.style.display = 'none';
-  editOperation.style.display = 'none';
-})
+agregarOperacion.addEventListener("click", () => {
+  createOperation.style.display = "block";
+  balance.style.display = "none";
+  categoria.style.display = "none";
+  editarCategoria.style.display = "none";
+  editOperation.style.display = "none";
+});
 
-botonBalance.addEventListener('click', () =>{
- mostrarHome()
-})
+botonBalance.addEventListener("click", () => {
+  mostrarHome();
+});
+const irABalance = () => {
+  mostrarHome();
+};
 
-botonHome.addEventListener('click', () =>{
-  mostrarHome()
-})
+botonHome.addEventListener("click", () => {
+  mostrarHome();
+});
 
-function mostrarHome(){
-  createOperation.style.display = 'none';
-  balance.style.display = 'block';
-  categoria.style.display = 'none';
-  editarCategoria.style.display = 'none';
-  editOperation.style.display = 'none';
-  renderOperaciones(operations.getAll(), listOperation)
-  if(operations.getAll().length >0){
-    imagenSinOperaciones.style.display='none';
-  }else{
-    imagenSinOperaciones.style.display='block';
+function mostrarHome() {
+  createOperation.style.display = "none";
+  balance.style.display = "block";
+  categoria.style.display = "none";
+  editarCategoria.style.display = "none";
+  editOperation.style.display = "none";
+  reportes.style.display = "none";
+  renderOperaciones(operations.getAll(), listOperation);
+  if (operations.getAll().length > 0) {
+    imagenSinOperaciones.style.display = "none";
+  } else {
+    imagenSinOperaciones.style.display = "block";
   }
-  mostrarOpcionesCategoria()
-  calcularBalance()
+  mostrarOpcionesCategoria();
+  calcularBalance();
 }
 
-botonCategoria.addEventListener('click', () =>{
-  createOperation.style.display = 'none';
-  balance.style.display = 'none';
-  categoria.style.display = 'block';
-  editarCategoria.style.display = 'none';
-  editOperation.style.display = 'none';
-})
+botonCategoria.addEventListener("click", () => {
+  irACategoria();
+});
+const irACategoria = () => {
+  createOperation.style.display = "none";
+  balance.style.display = "none";
+  categoria.style.display = "block";
+  editarCategoria.style.display = "none";
+  editOperation.style.display = "none";
+};
 
-botonReporte.addEventListener('click', () =>{
-  createOperation.style.display = 'none';
-  balance.style.display = 'none';
-  categoria.style.display = 'none';
-  editarCategoria.style.display = 'none';
-  reportes.style.display= 'block'
-  editOperation.style.display = 'none';
-})
+botonReporte.addEventListener("click", () => {
+  irAReportes();
+});
+const irAReportes = () => {
+  createOperation.style.display = "none";
+  balance.style.display = "none";
+  categoria.style.display = "none";
+  editarCategoria.style.display = "none";
+  reportes.style.display = "block";
+  editOperation.style.display = "none";
+};
 
-botonCancelNewOperation.addEventListener('click', () =>{
-  mostrarHome()
-})
+botonCancelNewOperation.addEventListener("click", () => {
+  mostrarHome();
+});
 
-window.addEventListener('DOMContentLoaded', () =>{
-  editOperation.style.display = 'none';
-  createOperation.style.display = 'none';
-  balance.style.display = 'block';
-  categoria.style.display = 'none';
-  editarCategoria.style.display = 'none';
-  editOperation.style.display = 'none';
-  reportes.style.display= 'none'
-  renderOperaciones(operations.getAll(), listOperation)
-  ocultarCuandoHayOperaciones()
-  calcularBalance()
-})
+window.addEventListener("DOMContentLoaded", () => {
+  editOperation.style.display = "none";
+  createOperation.style.display = "none";
+  balance.style.display = "block";
+  categoria.style.display = "none";
+  editarCategoria.style.display = "none";
+  editOperation.style.display = "none";
+  reportes.style.display = "none";
+  renderOperaciones(operations.getAll(), listOperation);
+  ocultarCuandoHayOperaciones();
+  calcularBalance();
+});
 
 //Agregando las operaciones
-btnAgregarOperacion.addEventListener('click', () =>{
-  debugger
-  const descripcion = document.getElementById('descripcion')
-  const monto = document.getElementById('monto')
-  const tipo = document.getElementById('tipo')
-  const categoria = document.getElementById('lista-categoria').selectedOptions[0];
-  const texto = categoria.textContent;
-  const fecha = document.getElementById('input-fecha')
+btnAgregarOperacion.addEventListener("click", () => {
+  debugger;
+  const descripcion = document.getElementById("descripcion");
+  const monto = document.getElementById("monto");
+  const tipo = document.getElementById("tipo");
+  const categoria = document.getElementById("lista-categoria");
+  const texto = categoria.selectedOptions[0].textContent;
+  const fecha = document.getElementById("input-fecha");
   const operaciones = {
     descripcion: descripcion.value,
     categoria: texto,
-    categoriaId: document.getElementById('lista-categoria').value,
+    categoriaId: categoria.value,
     fecha: fecha.value,
     monto: monto.value,
-    tipo: tipo.value
-  }
-  if(operaciones.descripcion.length === 0 || 
-    operaciones.categoria.length === 'Todas' ||
+    tipo: tipo.value,
+  };
+  if (
+    operaciones.descripcion.length === 0 ||
+    operaciones.categoria.length === "Todas" ||
     operaciones.fecha.length === 0 ||
-    operaciones.monto.length === 0){
-      return
-    }
+    operaciones.monto.length === 0
+  ) {
+    return;
+  }
   operations.create(operaciones);
-  mostrarHome()
-  ocultarCuandoHayOperaciones()
-})
+  mostrarHome();
+  ocultarCuandoHayOperaciones();
+  limpiarFormulario();
+});
+
+//Limpio campos para cargar datos
+function limpiarFormulario() {
+  document.getElementById("descripcion").value = "";
+  document.getElementById("monto").value = "";
+  document.getElementById("tipo").value = "";
+  document.getElementById("categoria").value = "";
+  document.getElementById("fecha").value = "";
+}
 
 const removeOperation = (id) => {
   operations.remove(id)
@@ -248,74 +267,85 @@ const removeOperation = (id) => {
 }
 
 const renderOperaciones = (array, element) => {
-    // filters
-    const type = $('[data-filter="filter-by-type"]').value
-    const category = $('[data-filter="filter-by-category"]').value
-    const date = $('[data-filter="filter-by-date"]').value
-    const order = $('[data-filter="order-by"]').value
-
-    let operations = filterByType(array, type)
-    operations = filterByCategory(operations, category)
-    operations = filterByDate(operations, date)
-    operations = orderBy([...operations], order)
-
-    element.innerHTML = ''
-
-  for (let el of operations) {
-    const itemOperation = document.createElement('div')
+  element.innerHTML = "";
+  for (let el of array) {
+    const itemOperation = document.createElement("div");
 
     itemOperation.innerHTML = `
     <div class="row" ${el.id}>
       <div class="col s3">${el.descripcion}</div>
       <div class="col s3">${el.categoria}</div>
       <div class="col s2">${el.fecha}</div>
-      <div class="col s2 ${el.tipo === 'Ganancia' ? 'montoGreen' : 'montoRed'}"> ${el.tipo ==='Ganancia' ? '+ $' + el.monto : '- $' + el.monto}</div>
+      <div class="col s2 ${
+        el.tipo === "Ganancia" ? "montoGreen" : "montoRed"
+      }"> ${el.tipo === "Ganancia" ? "+ $" + el.monto : "- $" + el.monto}</div>
       <div class="col s2"> 
-        <div class="margin-right-plus blue-text operation-edit manito" id="${el.id}" >Editar</div>
+        <div class="margin-right-plus blue-text operation-edit manito" id="${
+          el.id
+        }" >Editar</div>
         <div class="margin-right-plus blue-text operation-delete manito">Eliminar</div>
       </div>
     </div>  
-    `
+    `;
+    const edit = itemOperation.querySelector(".operation-edit");
+    const remove = itemOperation.querySelector(".operation-delete");
 
-    const edit = itemOperation.querySelector('.operation-edit')
-    const remove = itemOperation.querySelector('.operation-delete')
-    
     edit.onclick = () => {
-      editOperation.style.display = 'block';
-      createOperation.style.display = 'none';
-      balance.style.display= 'none';
+      idElementoAEditar = el.id;
+      editOperation.style.display = "block";
+      createOperation.style.display = "none";
+      balance.style.display = "none";
       inputEditarOperacion.value = el.descripcion;
       inputEditarOperacion.setAttribute('data-id', el.id);
       editarMonto.value = el.monto;
-      editarTipo.value = el.tipo;
-      editarListaCategoria.value = el.categoriaId;
       editarFecha.value = el.fecha;
-    }
+      editarTipo.value = el.tipo;
+      M.FormSelect.init(editarTipo);
+      editoListaCategoria.value = el.categoriaId;
+      M.FormSelect.init(editoListaCategoria);
+    };
 
     remove.onclick = () => {
-      removeOperation(el.id)
-    }
+      operations.remove(el.id);
+      renderOperaciones(operations.getAll(), listOperation);
+      ocultarCuandoHayOperaciones();
+      calcularBalance();
+    };
 
-    element.insertAdjacentElement('beforeend', itemOperation)
+    element.insertAdjacentElement("beforeend", itemOperation);
   }
-}
+};
+
+editarOperacion.addEventListener("click", () => {
+  const operacion = {
+    descripcion: inputEditarOperacion.value,
+    categoria: editoListaCategoria.selectedOptions[0].textContent,
+    categoriaId: editoListaCategoria.value,
+    fecha: editarFecha.value,
+    monto: editarMonto.value,
+    tipo: editarTipo.value,
+  };
+  operations.edit(idElementoAEditar, operacion);
+  balance.style.display = "block";
+  editOperation.style.display = "none";
+  mostrarHome();
+});
 
 //Oculto y muestro cuando hay operaciones
-function ocultarCuandoHayOperaciones (){
-  renderOperaciones(operations.getAll(), listOperation)
-  if(operations.getAll().length > 0){
-    imagenSinOperaciones.style.display='none';
-    barraOperaciones.style.display='block'
-  }else{
-    imagenSinOperaciones.style.display='block';
-    barraOperaciones.style.display='none'
+function ocultarCuandoHayOperaciones() {
+  renderOperaciones(operations.getAll(), listOperation);
+  if (operations.getAll().length > 0) {
+    imagenSinOperaciones.style.display = "none";
+    barraOperaciones.style.display = "block";
+  } else {
+    imagenSinOperaciones.style.display = "block";
+    barraOperaciones.style.display = "none";
   }
 }
 
-botonCancelEditOperation.addEventListener('click', ()=>{
-  mostrarHome()
-})
-
+botonCancelEditOperation.addEventListener("click", () => {
+  mostrarHome();
+});
 
 //Balance calculo pantalla principal
 function calcularBalance() {
@@ -325,7 +355,7 @@ function calcularBalance() {
   let total = 0;
 
   for (let i = 0; i < storage.length; i++) {
-    if (storage[i].tipo === 'Ganancia') {
+    if (storage[i].tipo === "Ganancia") {
       ganancia += Number(storage[i].monto);
     } else {
       gastos += Number(storage[i].monto);
@@ -338,28 +368,224 @@ function calcularBalance() {
 }
 
 
-// Editar operacion
-editOperationForm.addEventListener('submit', event => {
-  event.preventDefault()
-  const newOperation = {
-    descripcion: event.target['description'].value,
-    categoriaId: event.target['category'].value,
-    categoria: categories.get(event.target['category'].value).name,
-    fecha: event.target['date'].value,
-    monto: event.target['monto'].value,
-    tipo: event.target['type'].value
+//--------------FILTROS-----------------------
+//Tipo, categoria y fecha
+let filtroTipo = "Todos";
+let filtroCategoria = "Todas";
+let dtpFecha = document.getElementById("date");
+let fecha = '';
+
+function filtrar() {
+  let operaciones = operations.getAll();
+
+  let operacionesFiltradas = operaciones
+    .filter((el) => el.tipo === filtroTipo || filtroTipo === "Todos")
+    .filter(
+      (el) => el.categoria === filtroCategoria || filtroCategoria === "Todas"
+    );
+
+  if (dtpFecha.value !== "") {
+    operacionesFiltradas = operacionesFiltradas.filter(
+      (el) => fechaOperacion(el.fecha) >= fechaOperacion(fecha)
+    );
   }
-  const operationId = event.target['description'].getAttribute('data-id')
-  operations.edit(operationId , newOperation)
-  renderOperaciones(operations.getAll(), listOperation)
-  mostrarHome()
-  ocultarCuandoHayOperaciones()
-  calcularBalance()
+  renderOperaciones(operacionesFiltradas, listOperation);
+}
+
+document.getElementById("select-tipo").addEventListener("change", (event) => {
+  filtroTipo = event.target.selectedOptions[0].textContent;
+  filtrar();
+});
+document
+  .getElementById("filtro-lista-categoria")
+  .addEventListener("change", (event) => {
+    filtroCategoria = event.target.selectedOptions[0].textContent;
+    filtrar();
+  });
+dtpFecha.addEventListener("change", (event) => {
+  fecha = event.target.value;
+  filtrar();
+});
+
+function fechaOperacion(date) {
+  let myDate = date.split("-");
+  let newDate = new Date(myDate[0], myDate[1] - 1, myDate[2]);
+  return newDate.getTime();
+}
+
+//Ordenar según opción
+let valorAOrdenar = document.getElementById('list-order');
+let operaciones = operations.getAll();  
+
+valorAOrdenar.addEventListener('change',() =>{
+  let nuevoArr = [...operaciones]
+  if(valorAOrdenar.value === 'A-Z'){
+    nuevoArr.sort((a,b) => a.descripcion > b.descripcion ? 1 : -1)
+  }
+  if(valorAOrdenar.value === 'Z-A'){
+    nuevoArr.sort((a,b) => a.descripcion < b.descripcion ? 1 : -1)
+  }
+  if(valorAOrdenar.value === 'Más reciente'){
+    nuevoArr.sort((a,b) => a.fecha < b.fecha ? 1 : -1)
+  }
+  if(valorAOrdenar.value === 'Menos reciente'){
+    nuevoArr.sort((a,b) => a.fecha > b.fecha ? 1 : -1)
+  }
+  if(valorAOrdenar.value === 'Mayor monto'){
+    nuevoArr.sort((a,b) => b.monto - a.monto)
+  }
+  if(valorAOrdenar.value === 'Menor monto'){
+    nuevoArr.sort((a,b) => a.monto - b.monto)
+  }
+
+  renderOperaciones(nuevoArr, listOperation);
 })
 
-// Filtros
-formFilter.addEventListener('change', (event) => {
-  event.preventDefault()
-  mostrarHome()
-  renderOperaciones(operations.getAll(), listOperation)
-})
+
+
+//---------------REPORTES-----------------------
+let seccionReportes = {
+  resumen: [],
+  totalesCategoria: [],
+  totalesMes: [],
+};
+
+const resumenReportes = document.getElementById("resumen-reportes");
+const reportesTotalCategorias = document.getElementById(
+  "reportes-total-categorias"
+);
+const reportesTotalMes = document.getElementById("reportes-total-mes");
+
+generarReportes = () => {
+  let maxGanancia = 0;
+  let maxGasto = 0;
+  let maxBalance = 0;
+  let categoriaMayorGanancia;
+  let categoriaMayorGasto;
+  let categoriaMayorBalance;
+  let fechaMayorGanancia;
+  let fechaMayorGasto;
+
+  let totalReportesCategorias = [];
+  const categoriesStorage = categories.getAll();
+  categoriesStorage.forEach((categoria) => {
+    let itemReportes = {
+      categoria: categoria.name,
+      ganancia: 0,
+      gasto: 0,
+      balance: 0,
+    };
+    const operationsStorage = operations.getAll();
+    operationsStorage.forEach((operaciones) => {
+      if (categoria.name === operaciones.categoria) {
+        if (operaciones.tipo === "Gasto") {
+          itemReportes.gasto += Number(operaciones.monto);
+        }
+        if (operaciones.tipo === "Ganancia") {
+          itemReportes.ganancia += Number(operaciones.monto);
+        }
+      }
+    });
+    itemReportes.balance = itemReportes.ganancia - itemReportes.gasto;
+    totalReportesCategorias.push(itemReportes);
+
+    //Buscar categoría con mayor ganancia y mayor gasto
+    if (itemReportes.ganancia > maxGanancia) {
+      maxGanancia = itemReportes.ganancia;
+      categoriaMayorGanancia = itemReportes.categoria;
+      fechaMayorGanancia = itemReportes.mes;
+    }
+    if (itemReportes.gasto > maxGasto) {
+      maxGasto = itemReportes.gasto;
+      categoriaMayorGasto = itemReportes.categoria;
+      fechaMayorGasto = itemReportes.mes;
+    }
+    if (itemReportes.balance > maxBalance) {
+      maxBalance = itemReportes.balance;
+      categoriaMayorBalance = itemReportes.categoria;
+    }
+
+    let misReportes = {
+      maxGanancia: maxGanancia,
+      maxGasto: maxGasto,
+      maxBalance: maxBalance,
+      categoriaMayorGanancia: categoriaMayorGanancia,
+      categoriaMayorGasto: categoriaMayorGasto,
+      categoriaMayorBalance: categoriaMayorBalance,
+      fechaMayorGanancia: fechaMayorGanancia,
+      fechaMayorGasto: fechaMayorGasto,
+    };
+    pintoReportes(misReportes);
+  });
+  seccionReportes.totalesCategoria = totalReportesCategorias;
+};
+
+function pintoReportes(misReportes) {
+  titulosResumen = {
+    tituloMayorGanancia: "Categoría con mayor ganancia",
+    tituloMayorGasto: "Categoría con mayor gasto",
+    tituloMayorBalance: "Categoría con mayor balance",
+    tituloMesMayorGanancia: "Mes con mayor ganancia",
+    tituloMesMayorGasto: "Mes con mayor gasto",
+  };
+
+  resumenReportes.innerHTML = "";
+  let nuevoDiv = document.createElement("div");
+  nuevoDiv.innerHTML = `
+  <div class="row">
+    <div class="col s4">${titulosResumen.tituloMayorGanancia}</div>
+    <div class="col s4 cyan-text text-darken-3">${misReportes.categoriaMayorGanancia}</div>
+    <div class="col s4">$${misReportes.maxGanancia}</div>
+
+    <div class="col s4">${titulosResumen.tituloMayorGasto}</div>
+    <div class="col s4 cyan-text text-darken-3">${misReportes.categoriaMayorGasto}</div>
+    <div class="col s4">$${misReportes.maxGasto}</div>
+
+    <div class="col s4">${titulosResumen.tituloMayorBalance}</div>
+    <div class="col s4 cyan-text text-darken-3">${misReportes.categoriaMayorBalance}</div>
+    <div class="col s4">$${misReportes.maxBalance}</div>
+
+    <div class="col s4">${titulosResumen.tituloMesMayorGanancia}</div>
+    <div class="col s4 cyan-text text-darken-3">${misReportes.fechaMayorGanancia}</div>
+    <div class="col s4">$${misReportes.maxBalance}</div>
+
+    <div class="col s4">${titulosResumen.tituloMesMayorGasto}</div>
+    <div class="col s4 cyan-text text-darken-3">${misReportes.fechaMayorGasto}</div>
+    <div class="col s4">$${misReportes.maxGasto}</div>
+
+  </div>
+`;
+  resumenReportes.appendChild(nuevoDiv);
+}
+
+const reportesPorMes = () => {
+  let totalesMes = [];
+  for (let mes = 0; mes < 12; mes++) {
+    let dato = new Date(2021, mes, 4);
+    let mes = dato.toLocaleString("default", { month: "long" });
+    let itemReportesMes = {
+      mes: mes,
+      nombreMes: mes,
+      ganancia: 0,
+      gasto: 0,
+      balance: 0,
+    };
+    const operationsStorage = operations.getAll();
+    operationsStorage.forEach((operaciones) => {
+      let date = new Date(operaciones.fecha);
+      if (mes === date.getMonth()) {
+        if (operaciones.tipo === "Gasto") {
+          itemReportesMes.gasto += parseFloat(operaciones.monto);
+        }
+        if (operaciones.tipo === "Ganancia") {
+          itemReportesMes.ganancia += parseFloat(operaciones.monto);
+        }
+      }
+    });
+    itemReportesMes.balance = itemReportesMes.ganancia - itemReportesMes.gasto;
+    if (itemReportesMes.ganancia !== 0 || itemReportesMes.gasto !== 0) {
+      totalesMes.push(itemReportesMes);
+    }
+  }
+  seccionReportes.totalesMes = totalesMes;
+};
