@@ -221,7 +221,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //Agregando las operaciones
 btnAgregarOperacion.addEventListener("click", () => {
-  debugger;
   const descripcion = document.getElementById("descripcion");
   const monto = document.getElementById("monto");
   const tipo = document.getElementById("tipo");
@@ -256,7 +255,7 @@ function limpiarFormulario() {
   document.getElementById("monto").value = "";
   document.getElementById("tipo").value = "";
   document.getElementById("categoria").value = "";
-  document.getElementById("fecha").value = "";
+  document.getElementById("fecha") ? document.getElementById("fecha").value = "" : '';
 }
 
 const removeOperation = (id) => {
@@ -456,15 +455,40 @@ const reportesTotalCategorias = document.getElementById(
 );
 const reportesTotalMes = document.getElementById("reportes-total-mes");
 
-generarReportes = () => {
+
+const resumenByMonth = (operations) => {
+  if(!operations || !Array.isArray(operations)) return []
+
+  return operations.reduce((total, operation) => {
+      const date = `${new Date(operation.fecha).getFullYear()}/${new Date(operation.fecha).getMonth() + 1}`
+
+      if(!total.hasOwnProperty(date)) {
+          total[date] = {
+            spending: 0,
+            profits: 0,
+            balance: 0
+          }
+      }
+
+      total[date][operation.tipo] += parseInt(operation.monto)
+
+      if (operation.tipo === 'profits') {
+          total[date].balance += parseInt(operation.monto)
+        } else {
+          total[date].balance -= parseInt(operation.monto)
+        }
+
+      return total
+  }, {})
+}
+
+const generarReportes = () => {
   let maxGanancia = 0;
   let maxGasto = 0;
   let maxBalance = 0;
   let categoriaMayorGanancia;
   let categoriaMayorGasto;
   let categoriaMayorBalance;
-  let fechaMayorGanancia;
-  let fechaMayorGasto;
 
   let totalReportesCategorias = [];
   const categoriesStorage = categories.getAll();
@@ -477,11 +501,11 @@ generarReportes = () => {
     };
     const operationsStorage = operations.getAll();
     operationsStorage.forEach((operaciones) => {
-      if (categoria.name === operaciones.categoria) {
-        if (operaciones.tipo === "Gasto") {
+      if (categoria.id === operaciones.categoriaId) {
+        if (operaciones.tipo === "spending") {
           itemReportes.gasto += Number(operaciones.monto);
         }
-        if (operaciones.tipo === "Ganancia") {
+        if (operaciones.tipo === "profits") {
           itemReportes.ganancia += Number(operaciones.monto);
         }
       }
@@ -493,17 +517,35 @@ generarReportes = () => {
     if (itemReportes.ganancia > maxGanancia) {
       maxGanancia = itemReportes.ganancia;
       categoriaMayorGanancia = itemReportes.categoria;
-      fechaMayorGanancia = itemReportes.mes;
     }
     if (itemReportes.gasto > maxGasto) {
       maxGasto = itemReportes.gasto;
       categoriaMayorGasto = itemReportes.categoria;
-      fechaMayorGasto = itemReportes.mes;
     }
     if (itemReportes.balance > maxBalance) {
       maxBalance = itemReportes.balance;
       categoriaMayorBalance = itemReportes.categoria;
     }
+
+    // Mes con mayor ganancia y parseo de datos
+    const listMonth = Object.entries(resumenByMonth(operations.getAll()))
+    const listMonthProfits = listMonth.map(el => el[1].profits)
+    const listMonthSpending = listMonth.map(el => el[1].spending)
+
+    const maxMonthProfits = Math.max(...listMonthProfits)
+    const maxMonthSpending = Math.max(...listMonthSpending)
+
+    const monthMaxProfits =  listMonth.find(el => el[1].profits === maxMonthProfits)
+    const monthMaxSpending =  listMonth.find(el => el[1].spending === maxMonthSpending)
+
+    const fechaMayorGanancia = ({ ...monthMaxProfits[1], mes: monthMaxProfits[0], mesNombre: (
+      new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(new Date(new Date(monthMaxProfits[0])))
+    )})
+
+    const fechaMayorGasto = ({ ...monthMaxSpending[1], mes: monthMaxSpending[0], mesNombre: (
+      new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(new Date(new Date(monthMaxSpending[0])))
+    )})
+
 
     let misReportes = {
       maxGanancia: maxGanancia,
@@ -512,10 +554,12 @@ generarReportes = () => {
       categoriaMayorGanancia: categoriaMayorGanancia,
       categoriaMayorGasto: categoriaMayorGasto,
       categoriaMayorBalance: categoriaMayorBalance,
-      fechaMayorGanancia: fechaMayorGanancia,
-      fechaMayorGasto: fechaMayorGasto,
+      fechaMayorGanancia,
+      fechaMayorGasto,
     };
     pintoReportes(misReportes);
+    pintarResumenCategorias()
+    pintarResumenMes()
   });
   seccionReportes.totalesCategoria = totalReportesCategorias;
 };
@@ -546,46 +590,80 @@ function pintoReportes(misReportes) {
     <div class="col s4">$${misReportes.maxBalance}</div>
 
     <div class="col s4">${titulosResumen.tituloMesMayorGanancia}</div>
-    <div class="col s4 cyan-text text-darken-3">${misReportes.fechaMayorGanancia}</div>
-    <div class="col s4">$${misReportes.maxBalance}</div>
+    <div class="col s4 cyan-text text-darken-3">${misReportes.fechaMayorGanancia.mesNombre}</div>
+    <div class="col s4">$${misReportes.fechaMayorGanancia.profits}</div>
 
     <div class="col s4">${titulosResumen.tituloMesMayorGasto}</div>
-    <div class="col s4 cyan-text text-darken-3">${misReportes.fechaMayorGasto}</div>
-    <div class="col s4">$${misReportes.maxGasto}</div>
+    <div class="col s4 cyan-text text-darken-3">${misReportes.fechaMayorGasto.mesNombre}</div>
+    <div class="col s4">$${misReportes.fechaMayorGanancia.spending}</div>
 
   </div>
 `;
   resumenReportes.appendChild(nuevoDiv);
 }
 
-const reportesPorMes = () => {
-  let totalesMes = [];
-  for (let mes = 0; mes < 12; mes++) {
-    let dato = new Date(2021, mes, 4);
-    let mes = dato.toLocaleString("default", { month: "long" });
-    let itemReportesMes = {
-      mes: mes,
-      nombreMes: mes,
-      ganancia: 0,
-      gasto: 0,
-      balance: 0,
-    };
-    const operationsStorage = operations.getAll();
-    operationsStorage.forEach((operaciones) => {
-      let date = new Date(operaciones.fecha);
-      if (mes === date.getMonth()) {
-        if (operaciones.tipo === "Gasto") {
-          itemReportesMes.gasto += parseFloat(operaciones.monto);
-        }
-        if (operaciones.tipo === "Ganancia") {
-          itemReportesMes.ganancia += parseFloat(operaciones.monto);
-        }
+// Genera reporte de categorías
+const categoriasBalances = (operations) => {
+  if(!operations || !Array.isArray(operations)) return []
+
+  return operations.reduce((total, operation) => {
+      const categoryName = categories.get(operation.categoriaId)?.name
+
+      if(!total.hasOwnProperty(categoryName)) {
+          total[categoryName] = {
+              spending: 0,
+              profits: 0,
+              balance: 0
+          }
       }
-    });
-    itemReportesMes.balance = itemReportesMes.ganancia - itemReportesMes.gasto;
-    if (itemReportesMes.ganancia !== 0 || itemReportesMes.gasto !== 0) {
-      totalesMes.push(itemReportesMes);
+
+      total[categoryName][operation.tipo] += parseInt(operation.monto)
+
+      if(operation.tipo === 'profits') {
+          total[categoryName].balance += parseInt(operation.monto)
+      } 
+      else {
+          total[categoryName].balance -= parseInt(operation.monto)
+      } 
+
+      return total
+  }, {})
+}
+
+// Pinta reporte de categorias
+const listaCategoriasReporte = document.getElementById('lista-categorias-reporte')
+function pintarResumenCategorias(){
+    const categorias = categoriasBalances((operations.getAll()))
+    console.log(categorias)
+    listaCategoriasReporte.innerHTML = ''
+
+    for (const key in categorias) {
+      listaCategoriasReporte.insertAdjacentHTML('beforeend', 
+      `<div class="row">
+        <div class="col s3">${key}</div>
+        <div class="col s3">${categorias[key].spending}</div>
+        <div class="col s2">${categorias[key].profits}</div>
+        <div class="col s2">${categorias[key].balance}</div>
+      </div>`
+      )
     }
+}
+
+// Pinta reporte de meses
+const listaMesesReporte = document.getElementById('lista-meses-reporte')
+function pintarResumenMes() {
+  const meses = resumenByMonth(operations.getAll())
+  listaMesesReporte.innerHTML = ''
+
+  for (const key in meses) {
+    const nombreMes = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(new Date(new Date(key)))
+    listaMesesReporte.insertAdjacentHTML('beforeend', 
+    `<div class="row">
+      <div class="col s3">${nombreMes}</div>
+      <div class="col s3">${meses[key].spending}</div>
+      <div class="col s2">${meses[key].profits}</div>
+      <div class="col s2">${meses[key].balance}</div>
+    </div>`
+    )
   }
-  seccionReportes.totalesMes = totalesMes;
-};
+}
