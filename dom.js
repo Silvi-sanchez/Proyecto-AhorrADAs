@@ -392,7 +392,7 @@ function filtrar() {
 }
 
 document.getElementById("select-tipo").addEventListener("change", (event) => {
-  filtroTipo = event.target.selectedOptions[0].textContent;
+  filtroTipo = event.target.selectedOptions[0].value;
   filtrar();
 });
 document
@@ -417,7 +417,7 @@ let valorAOrdenar = document.getElementById('list-order');
 let operaciones = operations.getAll();  
 
 valorAOrdenar.addEventListener('change',() =>{
-  let nuevoArr = [...operaciones]
+  let nuevoArr = [...operations.getAll()]
   if(valorAOrdenar.value === 'A-Z'){
     nuevoArr.sort((a,b) => a.descripcion > b.descripcion ? 1 : -1)
   }
@@ -439,8 +439,6 @@ valorAOrdenar.addEventListener('change',() =>{
 
   renderOperaciones(nuevoArr, listOperation);
 })
-
-
 
 //---------------REPORTES-----------------------
 let seccionReportes = {
