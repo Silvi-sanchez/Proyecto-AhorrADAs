@@ -188,6 +188,7 @@ const irACategoria = () => {
   categoria.style.display = "block";
   editarCategoria.style.display = "none";
   editOperation.style.display = "none";
+  reportes.style.display = "none";
 };
 
 botonReporte.addEventListener("click", () => {
