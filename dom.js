@@ -276,8 +276,8 @@ const renderOperaciones = (array, element) => {
       <div class="col s3">${el.categoria}</div>
       <div class="col s2">${el.fecha}</div>
       <div class="col s2 ${
-        el.tipo === "Ganancia" ? "montoGreen" : "montoRed"
-      }"> ${el.tipo === "Ganancia" ? "+ $" + el.monto : "- $" + el.monto}</div>
+        el.tipo === "spending" ? "montoGreen" : "montoRed"
+      }"> ${el.tipo === "spending" ? "+ $" + el.monto : "- $" + el.monto}</div>
       <div class="col s2"> 
         <div class="margin-right-plus blue-text operation-edit manito" id="${
           el.id
