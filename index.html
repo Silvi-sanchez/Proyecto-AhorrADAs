@@ -99,9 +99,9 @@
                             <div class="input-field col s12">
                                 <select id="select-tipo">
                                     <option value="" disabled selected>Tipo</option>
-                                    <option value="1">Ganancia</option>
-                                    <option value="2">Gasto</option>
-                                    <option value="3">Todos</option>
+                                    <option value="spending">Gastos</option>
+                                    <option value="profits">Ganancias</option>    
+                                    <option value="Todos">Todos</option>
                                 </select>
                                 <label>Tipo</label>
                             </div>
@@ -118,14 +118,16 @@
                             </div>
 
 
+                            
                             <div class="input-field col s12">
-                                <select id="list-order" data-filter="order-by">
-                                    <option value="date-desc" selected>Más reciente</option>
-                                    <option value="date-asc">Menos reciente</option>
-                                    <option value="amount-asc">Menor monto</option>
-                                    <option value="amount-desc">Mayor monto</option>
-                                    <option value="asc">A/Z</option>
-                                    <option value="desc">Z/A</option>
+                                <select id="list-order">
+                                    <option value="" disabled selected>Ordenar por...</option>
+                                    <option value="A-Z">A-Z</option>
+                                    <option value="Z-A">Z-A</option>
+                                    <option value="Más reciente">Más reciente</option>
+                                    <option value="Menos reciente">Menos reciente</option>
+                                    <option value="Mayor monto">Mayor monto</option>
+                                    <option value="Menor monto">Menor monto</option>
                                 </select>
                                 <label>Ordenar por</label>
                             </div>
